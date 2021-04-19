@@ -1,5 +1,4 @@
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -8,14 +7,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
 import java.util.function.Consumer;
 
     public class loginPane extends BorderPane {
-        private Consumer<String> postLoginAction = null;
 
 
-        public loginPane(Consumer<String> postLoginAction) {
-            this.postLoginAction = postLoginAction;
+        public loginPane(Consumer<String> postLoginAction, Consumer<String> newAccountAction) {
             VBox fields = new VBox();
             HBox buttons = new HBox();
             fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
@@ -23,9 +21,9 @@ import java.util.function.Consumer;
 
             var username = new TextField();
             var password = new PasswordField();
-            var login = new Button("login");
-            var clear = new Button("clear");
-            var newUser = new Button("new user");
+            var login = new Button("Login");
+            var clear = new Button("Clear");
+            var newUser = new Button("New User");
             var errorMessage = new Label();
 
             fields.getChildren().add(new Label("Username", username));
@@ -43,6 +41,7 @@ import java.util.function.Consumer;
             });
 
             newUser.setOnAction(event -> {
+                newAccountAction.accept(username.getText());
 
 
             });
