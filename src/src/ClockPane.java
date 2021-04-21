@@ -14,37 +14,40 @@ public class ClockPane extends BorderPane {
     public ClockPane(Runnable goBackToLogin) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
-        fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
-        buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
+        buttons.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
 
-        var change1 = new TextField();
-        var change2 = new PasswordField();
-        var createAccount = new Button("Change");
-        var clear = new Button("Change");
-        var login = new Button("Change");
+        var backToLogin = new Button("Back to Login");
+        var addClocking = new Button("Clock In/Out");
+        var myInfo = new Button("My Info");
+        var admin = new Button("Admin Button");
         var errorMessage = new Label();
 
-        fields.getChildren().add(new Label("Change", change1));
-        fields.getChildren().add(new Label("Change", change2));
-        buttons.getChildren().add(createAccount);
-        buttons.getChildren().add(clear);
-        buttons.getChildren().add(login);
+        buttons.getChildren().add(backToLogin);
+        buttons.getChildren().add(addClocking);
+        buttons.getChildren().add(myInfo);
+        buttons.getChildren().add(admin);
         setTop(fields);
         setCenter(buttons);
         setBottom(errorMessage);
 
 
-        clear.setOnAction(event -> {
-            change1.clear();
-            change2.clear();
-        });
-
-        createAccount.setOnAction(event -> {
+        backToLogin.setOnAction(event -> {
             goBackToLogin.run();
 
         });
 
-        login.setOnAction(event -> {
+        addClocking.setOnAction(event -> {
+
+
+        });
+
+        myInfo.setOnAction(event -> {
+
+
+        });
+
+        admin.setOnAction(event ->  {
+
 
         });
     }
