@@ -26,9 +26,9 @@ public class createAccountPane extends BorderPane {
         var dob = new TextField();
         var password = new PasswordField();
         var repeatPassword = new PasswordField();
-        var createAccount = new Button("Create Account");
-        var clear = new Button("Clear");
         var back = new Button("Back to Login");
+        var clear = new Button("Clear");
+        var createAccount = new Button("Create Account");
         var errorMessage = new Label();
 
         fields.getChildren().add(new Label("Name", name));
@@ -40,9 +40,9 @@ public class createAccountPane extends BorderPane {
         fields.getChildren().add(new Label("Password", password));
         fields.getChildren().add(new Label("Repeat Password", repeatPassword));
 
-        buttons.getChildren().add(createAccount);
-        buttons.getChildren().add(clear);
         buttons.getChildren().add(back);
+        buttons.getChildren().add(clear);
+        buttons.getChildren().add(createAccount);
         setTop(fields);
         setCenter(buttons);
         setBottom(errorMessage);
@@ -70,33 +70,40 @@ public class createAccountPane extends BorderPane {
             repeatPassword.clear();
 
             backToLogin.accept("");
+            errorMessage.setText("");
 
         });
 
         createAccount.setOnAction(event -> {
-            if (main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
-                if (password.getText().equals(repeatPassword.getText())) {
-                    main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
-
-                    name.clear();
-                    username.clear();
-                    email.clear();
-                    address.clear();
-                    phoneNumber.clear();
-                    dob.clear();
-                    password.clear();
-                    repeatPassword.clear();
-
-                    backToLogin.accept("");
-                }
-                else {
-                    errorMessage.setText("The passwords do not match!");
-                    password.clear();
-                    repeatPassword.clear();
-                }
+            if (name.getText().equals("") || username.getText().equals("") || email.getText().equals("") || address.getText().equals("") || phoneNumber.getText().equals("") || dob.getText().equals("") || password.getText().equals("") || repeatPassword.getText().equals("")) {
+                errorMessage.setText("You must fill out the entire menu to create an account!");
             }
             else {
-                errorMessage.setText(main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()));
+                if (main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
+                    if (password.getText().equals(repeatPassword.getText())) {
+                        main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
+
+                        name.clear();
+                        username.clear();
+                        email.clear();
+                        address.clear();
+                        phoneNumber.clear();
+                        dob.clear();
+                        password.clear();
+                        repeatPassword.clear();
+                        errorMessage.setText("");
+
+                        backToLogin.accept("");
+
+
+                    } else {
+                        errorMessage.setText("The passwords do not match!");
+                        password.clear();
+                        repeatPassword.clear();
+                    }
+                } else {
+                    errorMessage.setText(main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()));
+                }
             }
         });
     }

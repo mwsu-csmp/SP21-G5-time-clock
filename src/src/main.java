@@ -5,10 +5,9 @@ import java.util.ArrayList;
 
 public class main extends Application {
     private static final ArrayList<user> database = new ArrayList<user>();
-    private loginPane login;
+    private Scene clockInScene;
     private Scene loginScene;
     private Scene createAccountScene;
-    private createAccountPane createAccount;
 
     public static void main(String args[]) {
         launch(args);
@@ -18,20 +17,31 @@ public class main extends Application {
     public void start(Stage primaryStage) {
         database.add(new user("admin", "admin", "admin@admin.com", "123 Admin Street", "123-456-7890", "1-1-2000", "password"));
 
-        login = new loginPane(username -> {
-            //set scene to clock pane
+
+        loginPane login = new loginPane(() -> {
+            primaryStage.setScene(clockInScene);
+            primaryStage.setTitle("Clock In");
         }, username -> {
             primaryStage.setScene(createAccountScene);
             primaryStage.setTitle("Create an Account");
         });
 
-        createAccount = new createAccountPane(username -> {
+
+        createAccountPane createAccount = new createAccountPane(username -> {
+            primaryStage.setScene(loginScene);
+            primaryStage.setTitle("Login");
+        });
+
+
+        ClockPane clockIn = new ClockPane(()-> {
             primaryStage.setScene(loginScene);
             primaryStage.setTitle("Login");
         });
 
         loginScene = new Scene(login);
         createAccountScene = new Scene(createAccount);
+        clockInScene = new Scene(clockIn);
+
         primaryStage.setScene(loginScene);
         primaryStage.setTitle("Login");
         primaryStage.show();
