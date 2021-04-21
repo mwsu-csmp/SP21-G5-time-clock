@@ -6,8 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-
 import java.util.function.Consumer;
 
     public class loginPane extends BorderPane {
@@ -23,14 +21,14 @@ import java.util.function.Consumer;
             var password = new PasswordField();
             var login = new Button("Login");
             var clear = new Button("Clear");
-            var newUser = new Button("New User");
+            var createAccount = new Button("Create an Account");
             var errorMessage = new Label();
 
             fields.getChildren().add(new Label("Username", username));
             fields.getChildren().add(new Label("Password", password));
             buttons.getChildren().add(login);
             buttons.getChildren().add(clear);
-            buttons.getChildren().add(newUser);
+            buttons.getChildren().add(createAccount);
             setTop(fields);
             setCenter(buttons);
             setBottom(errorMessage);
@@ -40,8 +38,17 @@ import java.util.function.Consumer;
                 password.clear();
             });
 
-            newUser.setOnAction(event -> {
+            createAccount.setOnAction(event -> {
                 newAccountAction.accept(username.getText());
+
+
+            });
+
+            login.setOnAction(event -> {
+                if (main.getUser(username.getText()) != null && main.getUser(username.getText()).getPassword().equals(password.getText()))  {
+                    errorMessage.setText("You have logged in!");
+
+                }
 
 
             });

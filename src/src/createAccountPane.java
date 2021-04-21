@@ -6,11 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-
 import java.util.function.Consumer;
 
 public class createAccountPane extends BorderPane {
+
 
 
     public createAccountPane(Consumer<String> backToLogin) {
@@ -23,25 +22,25 @@ public class createAccountPane extends BorderPane {
         var username = new TextField();
         var email = new TextField();
         var address = new TextField();
-        var number = new TextField();
+        var phoneNumber = new TextField();
         var dob = new TextField();
         var password = new PasswordField();
         var repeatPassword = new PasswordField();
-        var login = new Button("login");
-        var clear = new Button("clear");
-        var back = new Button("back");
+        var createAccount = new Button("Create Account");
+        var clear = new Button("Clear");
+        var back = new Button("Back to Login");
         var errorMessage = new Label();
 
         fields.getChildren().add(new Label("Name", name));
         fields.getChildren().add(new Label("Username", username));
         fields.getChildren().add(new Label("Email", email));
         fields.getChildren().add(new Label("Address", address));
-        fields.getChildren().add(new Label("Phone Number", number));
+        fields.getChildren().add(new Label("Phone Number", phoneNumber));
         fields.getChildren().add(new Label("Date of Birth", dob));
         fields.getChildren().add(new Label("Password", password));
         fields.getChildren().add(new Label("Repeat Password", repeatPassword));
 
-        buttons.getChildren().add(login);
+        buttons.getChildren().add(createAccount);
         buttons.getChildren().add(clear);
         buttons.getChildren().add(back);
         setTop(fields);
@@ -49,10 +48,56 @@ public class createAccountPane extends BorderPane {
         setBottom(errorMessage);
 
         clear.setOnAction(event -> {
+            name.clear();
+            username.clear();
+            email.clear();
+            address.clear();
+            phoneNumber.clear();
+            dob.clear();
+            password.clear();
+            repeatPassword.clear();
 
         });
+
         back.setOnAction(event -> {
+            name.clear();
+            username.clear();
+            email.clear();
+            address.clear();
+            phoneNumber.clear();
+            dob.clear();
+            password.clear();
+            repeatPassword.clear();
+
             backToLogin.accept("");
+
+        });
+
+        createAccount.setOnAction(event -> {
+            if (main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
+                if (password.getText().equals(repeatPassword.getText())) {
+                    main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
+
+                    name.clear();
+                    username.clear();
+                    email.clear();
+                    address.clear();
+                    phoneNumber.clear();
+                    dob.clear();
+                    password.clear();
+                    repeatPassword.clear();
+
+                    backToLogin.accept("");
+                }
+                else {
+                    errorMessage.setText("The passwords do not match!");
+                    password.clear();
+                    repeatPassword.clear();
+                }
+            }
+            else {
+                errorMessage.setText(main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()));
+            }
         });
     }
 }
