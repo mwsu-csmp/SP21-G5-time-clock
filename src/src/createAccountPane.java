@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.sql.SQLException;
 import java.util.function.Consumer;
 
 public class createAccountPane extends BorderPane {
@@ -81,7 +83,11 @@ public class createAccountPane extends BorderPane {
             else {
                 if (main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
                     if (password.getText().equals(repeatPassword.getText())) {
-                        main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
+                        try {
+                            main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
 
                         name.clear();
                         username.clear();

@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class main extends Application {
@@ -15,6 +17,7 @@ public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        BackEnd.connect();
         database.add(new user("admin", "admin", "admin@admin.com", "123 Admin Street", "123-456-7890", "1-1-2000", "password"));
 
 
@@ -47,8 +50,9 @@ public class main extends Application {
         primaryStage.show();
     }
 
-    public static void addToDatabase(String name, String username, String email, String address, String phoneNumber, String dob, String password) {
+    public static void addToDatabase(String name, String username, String email, String address, String phoneNumber, String dob, String password) throws SQLException {
         database.add(new user(name, username, email, address, phoneNumber, dob, password));
+        BackEnd.insertUser(name, username, email, address, phoneNumber, dob, password);
     }
 
     public static user getUser(String username) {
