@@ -30,7 +30,7 @@ public class BackEnd {
 
         PreparedStatement pstmt = null;
 
-        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,NULL,NULL,NULL)";
+        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , Address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,NULL,NULL,NULL)";
 
 
         try {
@@ -176,7 +176,7 @@ public class BackEnd {
     }
 
 
-    public static boolean checkDuplicate(String Username) throws SQLException {
+    public static boolean checkDuplicateUsername(String Username) throws SQLException {
 
 
         PreparedStatement pstmt = null;
@@ -217,6 +217,87 @@ public class BackEnd {
 
     }
 
+    public static boolean checkDuplicateEmail(String Username) throws SQLException {
+
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        int result;
+
+
+        String sql = "SELECT COUNT(*) FROM EMPLOYEE WHERE Email = ?";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, Username);
+            resultSet = pstmt.executeQuery();
+            result = resultSet.getInt(1);
+
+
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+
+        } finally {
+            pstmt.close();
+            resultSet.close();
+            connect().close();
+        }
+
+        return true;
+
+    }
+
+    public static boolean checkDuplicatePhone(String Username) throws SQLException {
+
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        int result;
+
+
+        String sql = "SELECT COUNT(*) FROM EMPLOYEE WHERE PhoneNumber = ?";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, Username);
+            resultSet = pstmt.executeQuery();
+            result = resultSet.getInt(1);
+
+
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+
+        } finally {
+            pstmt.close();
+            resultSet.close();
+            connect().close();
+        }
+
+        return true;
+
+    }
 
 
 
