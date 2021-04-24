@@ -28,6 +28,7 @@ public class Main extends Application {
 
         ClockPane clockIn = new ClockPane(username -> {
             userInfo.setUsername(username);
+            userInfo.update();
             primaryStage.setScene(userInformationScene);
             primaryStage.setTitle(username+"'s Information");
         }, () -> {

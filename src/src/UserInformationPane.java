@@ -7,9 +7,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Locale;
+
 public class UserInformationPane extends BorderPane {
 
-    private String username = "admin";
+    private String username;
+
+    Label nameLabel;
+    Label usernameLabel;
+    Label emailLabel;
+    Label addressLabel;
+    Label phoneNumberLabel;
+    Label dobLabel;
+    Label preferredPaymentLabel;
+    Label dollarsAnHourLabel;
+    Label hoursWorkedLabel;
+    Label dollarsEarnedLabel;
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -23,70 +37,64 @@ public class UserInformationPane extends BorderPane {
             fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
             buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
 
-            var name_box = new TextField();
-            var username_box = new TextField();
-            var email_box = new TextField();
-            var address_box = new TextField();
-            var phoneNumber_box = new TextField();
-            var dob_box = new TextField();
-            var password_box = new PasswordField();
+
             var back = new Button("Back to Clock In");
-            var clear = new Button("Clear");
-            var createAccount = new Button("Create Account");
+            var edit = new Button("Edit");
             var errorMessage = new Label();
 
-            String name = Main.getUser(username).getName();
-            String email = Main.getUser(username).getEmail();
-            String address = Main.getUser(username).getAddress();
-            String phoneNumber = Main.getUser(username).getPhoneNumber();
-            String dob = Main.getUser(username).getDob();
-            String password = Main.getUser(username).getPassword();
 
+        nameLabel = new Label();
+        usernameLabel = new Label();
+        emailLabel = new Label();
+        addressLabel = new Label();
+        phoneNumberLabel = new Label();
+        dobLabel = new Label();
+        preferredPaymentLabel = new Label();
+        dollarsAnHourLabel = new Label();
+        hoursWorkedLabel = new Label();
+        dollarsEarnedLabel = new Label();
 
-            fields.getChildren().add(new Label(name, name_box));
-            fields.getChildren().add(new Label(username, username_box));
-            fields.getChildren().add(new Label(email, email_box));
-            fields.getChildren().add(new Label(address, address_box));
-            fields.getChildren().add(new Label(phoneNumber, phoneNumber_box));
-            fields.getChildren().add(new Label(dob, dob_box));
-            fields.getChildren().add(new Label(password, password_box));
-
+            fields.getChildren().add(nameLabel);
+            fields.getChildren().add(usernameLabel);
+            fields.getChildren().add(emailLabel);
+            fields.getChildren().add(addressLabel);
+            fields.getChildren().add(phoneNumberLabel);
+            fields.getChildren().add(dobLabel);
+            fields.getChildren().add(preferredPaymentLabel);
+            fields.getChildren().add(dollarsAnHourLabel);
+            fields.getChildren().add(hoursWorkedLabel);
+            fields.getChildren().add(dollarsEarnedLabel);
 
             buttons.getChildren().add(back);
-            buttons.getChildren().add(clear);
-            buttons.getChildren().add(createAccount);
+            buttons.getChildren().add(edit);
             setTop(fields);
             setCenter(buttons);
             setBottom(errorMessage);
 
-            clear.setOnAction(event -> {
-                name_box.clear();
-                email_box.clear();
-                address_box.clear();
-                phoneNumber_box.clear();
-                dob_box.clear();
-                password_box.clear();
-
-            });
 
             back.setOnAction(event -> {
-                name_box.clear();
-                email_box.clear();
-                address_box.clear();
-                phoneNumber_box.clear();
-                dob_box.clear();
-                password_box.clear();
-
                 backToClockIn.run();
                 errorMessage.setText("");
 
             });
 
-            createAccount.setOnAction(event -> {
+            edit.setOnAction(event -> {
                 errorMessage.setText(username);
 
 
             });
 
+    }
+    public void update() {
+        nameLabel.setText("Name: "+Main.getUser(username).getName());
+        usernameLabel.setText("Username: "+Main.getUser(username).getUsername());
+        emailLabel.setText("Email: "+Main.getUser(username).getEmail());
+        addressLabel.setText("Address: "+Main.getUser(username).getAddress());
+        phoneNumberLabel.setText("Phone Number: "+Main.getUser(username).getPhoneNumber());
+        dobLabel.setText("Date of Birth: "+Main.getUser(username).getDob());
+        preferredPaymentLabel.setText("Preferred Payment Method: "+Main.getUser(username).getPreferredPayment().toString());
+        dollarsAnHourLabel.setText("Dollars Per Hour Worked: "+Main.getUser(username).getDollarsAnHour());
+        hoursWorkedLabel.setText("Total Hours Worked: "+Main.getUser(username).getHoursWorked());
+        dollarsEarnedLabel.setText("Dollars Earned: "+Main.getUser(username).getDollarsEarned());
     }
 }

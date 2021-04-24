@@ -8,8 +8,8 @@ public class User {
     private String dob;
     private String password;
     private PaymentMethod preferredPayment = PaymentMethod.CHECK;
-    private int dollarsAnHour;
-    private int hoursWorked;
+    private double dollarsAnHour = 4.00;
+    private double hoursWorked = 1.5;
 
     public User(String name, String username, String email, String address, String phoneNumber, String dob, String password) {
         this.name = name;
@@ -57,11 +57,11 @@ public class User {
         return preferredPayment;
     }
 
-    public int getDollarsAnHour() {
+    public double getDollarsAnHour() {
         return dollarsAnHour;
     }
 
-    public int getHoursWorked() {
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
@@ -91,5 +91,9 @@ public class User {
 
     public void setHoursWorked(int hoursWorked) {
         this.hoursWorked = hoursWorked;
+    }
+
+    public double getDollarsEarned() {
+        return hoursWorked * dollarsAnHour;
     }
 }
