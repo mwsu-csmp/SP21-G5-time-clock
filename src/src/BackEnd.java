@@ -15,7 +15,7 @@ public class BackEnd {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:users.db");
-            System.out.println("Opened database successfully");
+            System.out.println("connected ");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -137,6 +137,7 @@ public class BackEnd {
 
 
     public static List<String> userInfo(String Username) {
+
         List<String> UserInfo = null;
 
         PreparedStatement pstmt = null;
