@@ -1,12 +1,10 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    private static final ArrayList<User> database = new ArrayList<User>();
     private Scene clockInScene;
     private Scene loginScene;
     private Scene createAccountScene;
@@ -19,7 +17,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        database.add(new User("admin", "admin", "admin@admin.com", "123 Admin Street", "123-456-7890", "1-1-2000", "password"));
 
         UserInformationPane userInfo = new UserInformationPane(() -> {
             primaryStage.setScene(clockInScene);
@@ -63,11 +60,11 @@ public class Main extends Application {
     }
 
     public static void addToDatabase(String name, String username, String email, String address, String phoneNumber, String dob, String password) throws SQLException {
-        database.add(new User(name, username, email, address, phoneNumber, dob, password));
+        BackEnd.insertUser(name, username, email, address, phoneNumber, dob, password);
     }
-
+/*
     public static User getUser(String username) {
-        for (User name : database) {
+        for (User name : database) {// GET ALL INFO FROM USER FROM DATABASE
             if (name.getUsername().equals(username)) {
                 return name;
             }
@@ -76,7 +73,7 @@ public class Main extends Application {
     }
 
     public static String checkDuplicateInfo(String username, String email, String phoneNumber) {
-        for (User name : database) {
+        for (User name : database) { //CREATE A SQL TO CHECK IF USERNAME ALREADY EXISTS
             if (name.getUsername().equals(username)) {
                 return "This username is already taken!";
             }
@@ -89,6 +86,8 @@ public class Main extends Application {
         }
         return null;
     }
+
+ */
 }
 
 

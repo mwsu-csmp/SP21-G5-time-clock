@@ -4,18 +4,20 @@ import java.sql.*;
 
 
 public class BackEnd {
+
     private static Connection c;
 
    public static Connection connect() {
 
         try {
-            Class.forName("User");
-            c = DriverManager.getConnection("jdbc:sqlite:c://sqlite/users.db");
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:users.db");
+            System.out.println("Opened database successfully");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Opened database successfully");
+
 
         return c;
     }
@@ -25,15 +27,15 @@ public class BackEnd {
                            String password) throws SQLException {
 
         PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
 
-        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , address , phoneNumber , DOB , password , preferredPayment , dollarsAnHour , hoursWorked )" +
-                " VALUES (?,?,?,?,?,?,?,NULL,NULL,NULL)";
+        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,NULL,NULL,NULL)";
 
 
         try {
 
-            pstmt = c.prepareStatement(sql);
+            Connection conn = connect();
+
+            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
             pstmt.setString(2, Username);
             pstmt.setString(3, email);
@@ -41,26 +43,15 @@ public class BackEnd {
             pstmt.setString(5, phoneNumber);
             pstmt.setString(6, dob);
             pstmt.setString(7, password);
-
             pstmt.executeUpdate();
 
-            resultSet = pstmt.executeQuery();
 
-            if(resultSet.next()){
-                return true;
-            }else
-            {
-                return false;
-            }
-
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            return false;
+            System.out.println(e.toString());
 
-        } finally {
-            pstmt.close();
-            resultSet.close();
         }
+        return true;
     }
 
 
@@ -102,20 +93,21 @@ public class BackEnd {
     }
 
 
-    public boolean isLogin (String Username, String password) throws SQLException {
+    public static boolean isLogin (String Username, String password) throws SQLException {
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
+
         String sql = "SELECT Username , password FROM EMPLOYEE WHERE Username = ? AND password = ? ";
 
         try {
 
-            pstmt = c.prepareStatement(sql);
+            Connection conn = connect();
+
+            pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1,Username);
             pstmt.setString(2,password);
-            pstmt.executeUpdate();
-
             resultSet = pstmt.executeQuery();
 
             if(resultSet.next()){
