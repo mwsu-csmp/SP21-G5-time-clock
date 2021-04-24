@@ -5,11 +5,13 @@ import javafx.scene.Scene;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class main extends Application {
-    private static final ArrayList<user> database = new ArrayList<user>();
+public class Main extends Application {
+    private static final ArrayList<User> database = new ArrayList<User>();
     private Scene clockInScene;
     private Scene loginScene;
     private Scene createAccountScene;
+    private Scene userInformationScene;
+
 
     public static void main(String args[]) {
         launch(args);
@@ -17,33 +19,42 @@ public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        BackEnd.connect();
-        database.add(new user("admin", "admin", "admin@admin.com", "123 Admin Street", "123-456-7890", "1-1-2000", "password"));
+        database.add(new User("admin", "admin", "admin@admin.com", "123 Admin Street", "123-456-7890", "1-1-2000", "password"));
 
-
-        loginPane login = new loginPane(() -> {
+        UserInformationPane userInfo = new UserInformationPane(() -> {
             primaryStage.setScene(clockInScene);
             primaryStage.setTitle("Clock In");
-        }, username -> {
+        });
+
+        ClockPane clockIn = new ClockPane(username -> {
+            userInfo.setUsername(username);
+            primaryStage.setScene(userInformationScene);
+            primaryStage.setTitle(username+"'s Information");
+        }, () -> {
+            primaryStage.setScene(loginScene);
+            primaryStage.setTitle("Login");
+        });
+
+        LoginPane login = new LoginPane(username -> {
+            clockIn.setUsername(username);
+            primaryStage.setScene(clockInScene);
+            primaryStage.setTitle("Clock In");
+        }, () -> {
             primaryStage.setScene(createAccountScene);
             primaryStage.setTitle("Create an Account");
         });
 
-
-        createAccountPane createAccount = new createAccountPane(username -> {
+        CreateAccountPane createAccount = new CreateAccountPane(username -> {
             primaryStage.setScene(loginScene);
             primaryStage.setTitle("Login");
         });
 
 
-        ClockPane clockIn = new ClockPane(()-> {
-            primaryStage.setScene(loginScene);
-            primaryStage.setTitle("Login");
-        });
-
+        userInformationScene = new Scene(userInfo);
+        clockInScene = new Scene(clockIn);
         loginScene = new Scene(login);
         createAccountScene = new Scene(createAccount);
-        clockInScene = new Scene(clockIn);
+
 
         primaryStage.setScene(loginScene);
         primaryStage.setTitle("Login");
@@ -51,12 +62,11 @@ public class main extends Application {
     }
 
     public static void addToDatabase(String name, String username, String email, String address, String phoneNumber, String dob, String password) throws SQLException {
-        database.add(new user(name, username, email, address, phoneNumber, dob, password));
-        BackEnd.insertUser(name, username, email, address, phoneNumber, dob, password);
+        database.add(new User(name, username, email, address, phoneNumber, dob, password));
     }
 
-    public static user getUser(String username) {
-        for (user name : database) {
+    public static User getUser(String username) {
+        for (User name : database) {
             if (name.getUsername().equals(username)) {
                 return name;
             }
@@ -65,7 +75,7 @@ public class main extends Application {
     }
 
     public static String checkDuplicateInfo(String username, String email, String phoneNumber) {
-        for (user name : database) {
+        for (User name : database) {
             if (name.getUsername().equals(username)) {
                 return "This username is already taken!";
             }

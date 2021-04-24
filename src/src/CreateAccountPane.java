@@ -10,11 +10,11 @@ import javafx.scene.layout.VBox;
 import java.sql.SQLException;
 import java.util.function.Consumer;
 
-public class createAccountPane extends BorderPane {
+public class CreateAccountPane extends BorderPane {
 
 
 
-    public createAccountPane(Consumer<String> backToLogin) {
+    public CreateAccountPane(Consumer<String> backToLogin) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
         fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
@@ -58,6 +58,7 @@ public class createAccountPane extends BorderPane {
             dob.clear();
             password.clear();
             repeatPassword.clear();
+            errorMessage.setText("");
 
         });
 
@@ -81,10 +82,10 @@ public class createAccountPane extends BorderPane {
                 errorMessage.setText("You must fill out the entire menu to create an account!");
             }
             else {
-                if (main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
+                if (Main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
                     if (password.getText().equals(repeatPassword.getText())) {
                         try {
-                            main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
+                            Main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }
@@ -108,7 +109,7 @@ public class createAccountPane extends BorderPane {
                         repeatPassword.clear();
                     }
                 } else {
-                    errorMessage.setText(main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()));
+                    errorMessage.setText(Main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()));
                 }
             }
         });

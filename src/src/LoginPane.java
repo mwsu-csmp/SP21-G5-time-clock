@@ -8,10 +8,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.util.function.Consumer;
 
-    public class loginPane extends BorderPane {
+    public class LoginPane extends BorderPane {
 
 
-        public loginPane(Runnable postLoginAction, Consumer<String> newAccountAction) {
+        public LoginPane(Consumer<String> postLoginAction, Runnable newAccountAction) {
             VBox fields = new VBox();
             HBox buttons = new HBox();
             fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
@@ -37,10 +37,11 @@ import java.util.function.Consumer;
             clear.setOnAction(event -> {
                 username.clear();
                 password.clear();
+                errorMessage.setText("");
             });
 
             createAccount.setOnAction(event -> {
-                newAccountAction.accept("");
+                newAccountAction.run();
                 errorMessage.setText("");
                 username.clear();
                 password.clear();
@@ -49,11 +50,14 @@ import java.util.function.Consumer;
             });
 
             login.setOnAction(event -> {
-                if (main.getUser(username.getText()) != null && main.getUser(username.getText()).getPassword().equals(password.getText()))  {
+                if (Main.getUser(username.getText()) != null && Main.getUser(username.getText()).getPassword().equals(password.getText()))  {
+                    errorMessage.setText("");
+                    postLoginAction.accept(username.getText());
                     username.clear();
                     password.clear();
-                    postLoginAction.run();
-
+                }
+                else {
+                    errorMessage.setText("Invalid username or password!");
                 }
             });
         }

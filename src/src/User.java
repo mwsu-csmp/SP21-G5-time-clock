@@ -1,4 +1,4 @@
-public class user {
+public class User {
     private int id;
     private String name;
     private String username;
@@ -7,11 +7,11 @@ public class user {
     private String phoneNumber;
     private String dob;
     private String password;
-    private paymentMethod preferredPayment = paymentMethod.CHECK;
+    private PaymentMethod preferredPayment = PaymentMethod.CHECK;
     private int dollarsAnHour;
     private int hoursWorked;
 
-    public user(String name, String username, String email, String address, String phoneNumber, String dob, String password) {
+    public User(String name, String username, String email, String address, String phoneNumber, String dob, String password) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -53,7 +53,7 @@ public class user {
         return password;
     }
 
-    public paymentMethod getPreferredPayment() {
+    public PaymentMethod getPreferredPayment() {
         return preferredPayment;
     }
 
@@ -81,7 +81,7 @@ public class user {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setPreferredPayment(paymentMethod preferredPayment) {
+    public void setPreferredPayment(PaymentMethod preferredPayment) {
         this.preferredPayment = preferredPayment;
     }
 

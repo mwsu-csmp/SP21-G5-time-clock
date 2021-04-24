@@ -1,3 +1,3 @@
-public enum paymentMethod {
+public enum PaymentMethod {
     CHECK,CASH,DIRECTDEPOSIT
 }

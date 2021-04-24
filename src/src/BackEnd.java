@@ -9,7 +9,7 @@ public class BackEnd {
    public static Connection connect() {
 
         try {
-            Class.forName("user");
+            Class.forName("User");
             c = DriverManager.getConnection("jdbc:sqlite:c://sqlite/users.db");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
