@@ -85,7 +85,12 @@ public class UserInformationPane extends BorderPane {
             });
 
     }
+
     public void update() {
+
+        System.out.println(BackEnd.userInfo(username));
+
+        /*
         nameLabel.setText("Name: "+Main.getUser(username).getName());
         usernameLabel.setText("Username: "+Main.getUser(username).getUsername());
         emailLabel.setText("Email: "+Main.getUser(username).getEmail());
@@ -96,5 +101,6 @@ public class UserInformationPane extends BorderPane {
         dollarsAnHourLabel.setText("Dollars Per Hour: "+Main.getUser(username).getDollarsAnHour());
         hoursWorkedLabel.setText("Total Hours Worked: "+Main.getUser(username).getHoursWorked());
         dollarsEarnedLabel.setText("Dollars Earned: "+Main.getUser(username).getDollarsEarned());
+        */
     }
 }

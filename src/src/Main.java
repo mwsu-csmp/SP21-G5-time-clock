@@ -71,23 +71,24 @@ public class Main extends Application {
         }
         return null;
     }
+     */
 
     public static String checkDuplicateInfo(String username, String email, String phoneNumber) {
-        for (User name : database) { //CREATE A SQL TO CHECK IF USERNAME ALREADY EXISTS
-            if (name.getUsername().equals(username)) {
+        //for ) { //CREATE A SQL TO CHECK IF USERNAME ALREADY EXISTS
+            if (BackEnd.checkDuplicate(username)) {
                 return "This username is already taken!";
             }
-            if (name.getEmail().equals(email)) {
-                return "This email is already linked to an account!";
-            }
-            if (name.getPhoneNumber().equals(phoneNumber)) {
-                return "This phone number is already linked to an account!";
-            }
-        }
+            //if (name.getEmail().equals(email)) {
+                //return "This email is already linked to an account!";
+            //}
+            //if (name.getPhoneNumber().equals(phoneNumber)) {
+            //    return "This phone number is already linked to an account!";
+           // }
+        //}
         return null;
     }
 
- */
+
 }
 
 

@@ -1,13 +1,15 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import java.util.Collections;
+import java.util.List;
 
 
 public class BackEnd {
 
     private static Connection c;
 
-   public static Connection connect() {
+    public static Connection connect() {
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -123,9 +125,112 @@ public class BackEnd {
             return false;
 
         } finally {
-            pstmt.close();
-            resultSet.close();
+            try {
+                pstmt.close();
+                resultSet.close();
+                connect().close();
+            }catch(SQLException e)
+            {
+                System.out.println(e.toString());
+
+            }
+
         }
+
+    }
+
+
+    public static List userInfo(String Username)
+    {
+        List UserInfo = null;
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        String sql = "SELECT * FROM EMPLOYEE WHERE Username = ?";
+
+        try {
+
+            Connection conn = connect();
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1,Username);
+
+            resultSet = pstmt.executeQuery();
+
+            UserInfo = Collections.singletonList(resultSet.getString(1));
+
+            return UserInfo;
+
+
+        }catch(SQLException e)
+        {
+            System.out.println(e.toString());
+
+        } finally {
+            try {
+                pstmt.close();
+                resultSet.close();
+                connect().close();
+            }catch(SQLException e)
+            {
+                System.out.println(e.toString());
+
+            }
+
+        }
+        return UserInfo;
+    }
+
+
+    public static boolean checkDuplicate(String Username)
+    {
+
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        int result = 1;
+
+        String sql = "SELECT COUNT(*) FROM EMPLOYEE WHERE Username = '?';";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1,Username);
+            resultSet = pstmt.executeQuery();
+            resultSet.next();
+
+
+
+            if(result < 1){
+                return true;
+            }else
+            {
+                return false;
+            }
+
+        }catch(Exception e)
+        {
+            return false;
+
+        }finally {
+
+            try {
+                pstmt.close();
+                resultSet.close();
+                connect().close();
+            }catch(SQLException e)
+            {
+                System.out.println(e.toString());
+
+            }
+
+        }
+
+
     }
 
 
