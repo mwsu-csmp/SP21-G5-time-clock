@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Locale;
+import java.util.function.Consumer;
 
 public class UserInformationPane extends BorderPane {
 
@@ -30,7 +31,7 @@ public class UserInformationPane extends BorderPane {
     }
 
 
-    public UserInformationPane(Runnable backToClockIn) {
+    public UserInformationPane(Runnable backToClockIn, Consumer<String> goToEdit) {
 
             VBox fields = new VBox();
             HBox buttons = new HBox();
@@ -74,12 +75,13 @@ public class UserInformationPane extends BorderPane {
 
             back.setOnAction(event -> {
                 backToClockIn.run();
-                errorMessage.setText("");
+
 
             });
 
             edit.setOnAction(event -> {
-                errorMessage.setText(username);
+                goToEdit.accept(username);
+
 
 
             });
@@ -98,9 +100,9 @@ public class UserInformationPane extends BorderPane {
         phoneNumberLabel.setText("Phone Number: "+Main.getUser(username).getPhoneNumber());
         dobLabel.setText("Date of Birth: "+Main.getUser(username).getDob());
         preferredPaymentLabel.setText("Preferred Payment Method: "+Main.getUser(username).getPreferredPayment().toString());
-        dollarsAnHourLabel.setText("Dollars Per Hour: "+Main.getUser(username).getDollarsAnHour());
+        dollarsAnHourLabel.setText("Dollars Per Hour: $"+Main.getUser(username).getDollarsAnHour());
         hoursWorkedLabel.setText("Total Hours Worked: "+Main.getUser(username).getHoursWorked());
-        dollarsEarnedLabel.setText("Dollars Earned: "+Main.getUser(username).getDollarsEarned());
+        dollarsEarnedLabel.setText("Dollars Earned: $"+Main.getUser(username).getDollarsEarned());
         */
     }
 }

@@ -52,19 +52,17 @@ import java.util.function.Consumer;
             });
 
             login.setOnAction(event -> {
-                try {
-                    if (BackEnd.isLogin(username.getText(),password.getText())){
+
+
                         errorMessage.setText("");
                         postLoginAction.accept(username.getText());
                         username.clear();
                         password.clear();
-                    }
-                    else {
-                        errorMessage.setText("Invalid username or password!");
-                    }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+
+
+
+
+
             });
         }
     }

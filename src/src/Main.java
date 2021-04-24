@@ -2,13 +2,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 public class Main extends Application {
     private Scene clockInScene;
     private Scene loginScene;
     private Scene createAccountScene;
     private Scene userInformationScene;
+    private Scene editAccountScene;
 
 
     public static void main(String args[]) {
@@ -18,9 +19,18 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        EditAccountPane editAccount = new EditAccountPane(username -> {
+            primaryStage.setScene(userInformationScene);
+            primaryStage.setTitle(username+"'s Information");
+        });
+
         UserInformationPane userInfo = new UserInformationPane(() -> {
             primaryStage.setScene(clockInScene);
             primaryStage.setTitle("Clock In");
+        },username -> {
+            editAccount.update();
+            primaryStage.setScene(editAccountScene);
+            primaryStage.setTitle("Edit Account Information");
         });
 
         ClockPane clockIn = new ClockPane(username -> {
@@ -42,7 +52,7 @@ public class Main extends Application {
             primaryStage.setTitle("Create an Account");
         });
 
-        CreateAccountPane createAccount = new CreateAccountPane(username -> {
+        CreateAccountPane createAccount = new CreateAccountPane(() -> {
             primaryStage.setScene(loginScene);
             primaryStage.setTitle("Login");
         });
@@ -52,6 +62,7 @@ public class Main extends Application {
         clockInScene = new Scene(clockIn);
         loginScene = new Scene(login);
         createAccountScene = new Scene(createAccount);
+        editAccountScene= new Scene(editAccount);
 
 
         primaryStage.setScene(loginScene);

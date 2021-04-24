@@ -14,7 +14,7 @@ public class CreateAccountPane extends BorderPane {
 
 
 
-    public CreateAccountPane(Consumer<String> backToLogin) {
+    public CreateAccountPane(Runnable backToLogin) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
         fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
@@ -72,7 +72,7 @@ public class CreateAccountPane extends BorderPane {
             password.clear();
             repeatPassword.clear();
 
-            backToLogin.accept("");
+            backToLogin.run();
             errorMessage.setText("");
 
         });
@@ -101,7 +101,7 @@ public class CreateAccountPane extends BorderPane {
                             repeatPassword.clear();
                             errorMessage.setText("");
 
-                            backToLogin.accept("");
+                            backToLogin.run();
 
 
                         } else {
