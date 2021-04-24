@@ -194,10 +194,8 @@ public class BackEnd {
 
             pstmt.setString(1, Username);
             resultSet = pstmt.executeQuery();
-
             result = resultSet.getInt(1);
 
-            System.out.println(result);
 
             if (result > 0) {
                 return true;
