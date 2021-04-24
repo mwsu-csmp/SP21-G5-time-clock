@@ -93,7 +93,7 @@ public class UserInformationPane extends BorderPane {
         phoneNumberLabel.setText("Phone Number: "+Main.getUser(username).getPhoneNumber());
         dobLabel.setText("Date of Birth: "+Main.getUser(username).getDob());
         preferredPaymentLabel.setText("Preferred Payment Method: "+Main.getUser(username).getPreferredPayment().toString());
-        dollarsAnHourLabel.setText("Dollars Per Hour Worked: "+Main.getUser(username).getDollarsAnHour());
+        dollarsAnHourLabel.setText("Dollars Per Hour: "+Main.getUser(username).getDollarsAnHour());
         hoursWorkedLabel.setText("Total Hours Worked: "+Main.getUser(username).getHoursWorked());
         dollarsEarnedLabel.setText("Dollars Earned: "+Main.getUser(username).getDollarsEarned());
     }
