@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.sql.SQLException;
 import java.util.function.Consumer;
 
     public class LoginPane extends BorderPane {
@@ -50,14 +52,18 @@ import java.util.function.Consumer;
             });
 
             login.setOnAction(event -> {
-                if (Main.getUser(username.getText()) != null && Main.getUser(username.getText()).getPassword().equals(password.getText()))  {
-                    errorMessage.setText("");
-                    postLoginAction.accept(username.getText());
-                    username.clear();
-                    password.clear();
-                }
-                else {
-                    errorMessage.setText("Invalid username or password!");
+                try {
+                    if (BackEnd.isLogin(username.getText(),password.getText())){
+                        errorMessage.setText("");
+                        postLoginAction.accept(username.getText());
+                        username.clear();
+                        password.clear();
+                    }
+                    else {
+                        errorMessage.setText("Invalid username or password!");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
             });
         }
