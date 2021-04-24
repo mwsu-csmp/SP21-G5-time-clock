@@ -25,8 +25,8 @@ public class BackEnd {
     }
 
 
-    public static boolean insertUser(String name, String Username, String email, String address, String phoneNumber,String dob,
-                           String password) throws SQLException {
+    public static boolean insertUser(String name, String Username, String email, String address, String phoneNumber, String dob,
+                                     String password) throws SQLException {
 
         PreparedStatement pstmt = null;
 
@@ -48,8 +48,7 @@ public class BackEnd {
             pstmt.executeUpdate();
 
 
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e.toString());
 
         }
@@ -65,27 +64,26 @@ public class BackEnd {
         String sql = "INSERT INTO CLOCK (EMP_ID, DAY, CLOCK_IN, CLOCK_OUT)" +
                 " VALUES (?,?,?,?)";
 
-        try{
+        try {
 
             pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, id);
             pstmt.setString(2, day);
             pstmt.setString(3, Clock_In);
-            pstmt.setString(4, Clock_Out);;
+            pstmt.setString(4, Clock_Out);
+            ;
             pstmt.executeUpdate();
 
             resultSet = pstmt.executeQuery();
 
 
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
-            }else
-            {
+            } else {
                 return false;
             }
 
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             return false;
 
         } finally {
@@ -95,7 +93,7 @@ public class BackEnd {
     }
 
 
-    public static boolean isLogin (String Username, String password) throws SQLException {
+    public static boolean isLogin(String Username, String password) throws SQLException {
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -108,20 +106,18 @@ public class BackEnd {
 
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1,Username);
-            pstmt.setString(2,password);
+            pstmt.setString(1, Username);
+            pstmt.setString(2, password);
             resultSet = pstmt.executeQuery();
 
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return true;
-            }else
-            {
+            } else {
                 return false;
             }
 
 
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             return false;
 
         } finally {
@@ -129,8 +125,7 @@ public class BackEnd {
                 pstmt.close();
                 resultSet.close();
                 connect().close();
-            }catch(SQLException e)
-            {
+            } catch (SQLException e) {
                 System.out.println(e.toString());
 
             }
@@ -140,8 +135,7 @@ public class BackEnd {
     }
 
 
-    public static List userInfo(String Username)
-    {
+    public static List userInfo(String Username) {
         List UserInfo = null;
 
         PreparedStatement pstmt = null;
@@ -155,7 +149,7 @@ public class BackEnd {
 
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1,Username);
+            pstmt.setString(1, Username);
 
             resultSet = pstmt.executeQuery();
 
@@ -164,8 +158,7 @@ public class BackEnd {
             return UserInfo;
 
 
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e.toString());
 
         } finally {
@@ -173,8 +166,7 @@ public class BackEnd {
                 pstmt.close();
                 resultSet.close();
                 connect().close();
-            }catch(SQLException e)
-            {
+            } catch (SQLException e) {
                 System.out.println(e.toString());
 
             }
@@ -184,52 +176,46 @@ public class BackEnd {
     }
 
 
-    public static boolean checkDuplicate(String Username)
-    {
+    public static boolean checkDuplicate(String Username) throws SQLException {
 
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
-        int result = 1;
 
-        String sql = "SELECT COUNT(*) FROM EMPLOYEE WHERE Username = '?';";
+        int result;
+
+
+        String sql = "SELECT COUNT(*) FROM EMPLOYEE WHERE Username = ?";
 
         try {
 
             Connection conn = connect();
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1,Username);
+            pstmt.setString(1, Username);
             resultSet = pstmt.executeQuery();
-            resultSet.next();
 
+            result = resultSet.getInt(1);
 
+            System.out.println(result);
 
-            if(result < 1){
+            if (result > 0) {
                 return true;
-            }else
-            {
+            } else {
                 return false;
             }
 
-        }catch(Exception e)
-        {
-            return false;
 
-        }finally {
+        } catch (SQLException e) {
+            System.out.println(e.toString());
 
-            try {
-                pstmt.close();
-                resultSet.close();
-                connect().close();
-            }catch(SQLException e)
-            {
-                System.out.println(e.toString());
-
-            }
-
+        } finally {
+            pstmt.close();
+            resultSet.close();
+            connect().close();
         }
 
+        return true;
 
     }
 

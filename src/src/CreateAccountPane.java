@@ -82,34 +82,38 @@ public class CreateAccountPane extends BorderPane {
                 errorMessage.setText("You must fill out the entire menu to create an account!");
             }
             else {
-                if (Main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
-                    if (password.getText().equals(repeatPassword.getText())) {
-                        try {
-                            Main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
+                try {
+                    if (Main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
+                        if (password.getText().equals(repeatPassword.getText())) {
+                            try {
+                                Main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+
+                            name.clear();
+                            username.clear();
+                            email.clear();
+                            address.clear();
+                            phoneNumber.clear();
+                            dob.clear();
+                            password.clear();
+                            repeatPassword.clear();
+                            errorMessage.setText("");
+
+                            backToLogin.accept("");
+
+
+                        } else {
+                            errorMessage.setText("The passwords do not match!");
+                            password.clear();
+                            repeatPassword.clear();
                         }
-
-                        name.clear();
-                        username.clear();
-                        email.clear();
-                        address.clear();
-                        phoneNumber.clear();
-                        dob.clear();
-                        password.clear();
-                        repeatPassword.clear();
-                        errorMessage.setText("");
-
-                        backToLogin.accept("");
-
-
                     } else {
-                        errorMessage.setText("The passwords do not match!");
-                        password.clear();
-                        repeatPassword.clear();
+                        errorMessage.setText(Main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()));
                     }
-                } else {
-                    errorMessage.setText(Main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
             }
         });

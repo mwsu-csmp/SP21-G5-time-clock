@@ -73,7 +73,7 @@ public class Main extends Application {
     }
      */
 
-    public static String checkDuplicateInfo(String username, String email, String phoneNumber) {
+    public static String checkDuplicateInfo(String username, String email, String phoneNumber) throws SQLException {
         //for ) { //CREATE A SQL TO CHECK IF USERNAME ALREADY EXISTS
             if (BackEnd.checkDuplicate(username)) {
                 return "This username is already taken!";
