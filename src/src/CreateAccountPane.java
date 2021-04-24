@@ -17,8 +17,8 @@ public class CreateAccountPane extends BorderPane {
     public CreateAccountPane(Runnable backToLogin) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
-        fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
-        buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
+        fields.alignmentProperty().setValue(Pos.TOP_LEFT);
+        buttons.alignmentProperty().setValue(Pos.TOP_LEFT);
 
         var name = new TextField();
         var username = new TextField();

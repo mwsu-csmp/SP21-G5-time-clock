@@ -8,9 +8,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Locale;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class UserInformationPane extends BorderPane {
+public class AdminInformationPane extends BorderPane {
 
     private String username;
 
@@ -31,17 +32,17 @@ public class UserInformationPane extends BorderPane {
     }
 
 
-    public UserInformationPane(Runnable backToClockIn, Consumer<String> goToEdit) {
+    public AdminInformationPane(Consumer<String> editUser, Runnable backToAdminSearch) {
 
-            VBox fields = new VBox();
-            HBox buttons = new HBox();
-            fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
-            buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
+        VBox fields = new VBox();
+        HBox buttons = new HBox();
+        fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
+        buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
 
 
-            var back = new Button("Back");
-            var edit = new Button("Edit");
-            var errorMessage = new Label();
+        var back = new Button("Back");
+        var edit = new Button("Edit");
+        var errorMessage = new Label();
 
 
         nameLabel = new Label();
@@ -55,36 +56,36 @@ public class UserInformationPane extends BorderPane {
         hoursWorkedLabel = new Label();
         dollarsEarnedLabel = new Label();
 
-            fields.getChildren().add(nameLabel);
-            fields.getChildren().add(usernameLabel);
-            fields.getChildren().add(emailLabel);
-            fields.getChildren().add(addressLabel);
-            fields.getChildren().add(phoneNumberLabel);
-            fields.getChildren().add(dobLabel);
-            fields.getChildren().add(preferredPaymentLabel);
-            fields.getChildren().add(dollarsAnHourLabel);
-            fields.getChildren().add(hoursWorkedLabel);
-            fields.getChildren().add(dollarsEarnedLabel);
+        fields.getChildren().add(nameLabel);
+        fields.getChildren().add(usernameLabel);
+        fields.getChildren().add(emailLabel);
+        fields.getChildren().add(addressLabel);
+        fields.getChildren().add(phoneNumberLabel);
+        fields.getChildren().add(dobLabel);
+        fields.getChildren().add(preferredPaymentLabel);
+        fields.getChildren().add(dollarsAnHourLabel);
+        fields.getChildren().add(hoursWorkedLabel);
+        fields.getChildren().add(dollarsEarnedLabel);
 
-            buttons.getChildren().add(back);
-            buttons.getChildren().add(edit);
-            setTop(fields);
-            setCenter(buttons);
-            setBottom(errorMessage);
-
-
-            back.setOnAction(event -> {
-                backToClockIn.run();
+        buttons.getChildren().add(back);
+        buttons.getChildren().add(edit);
+        setTop(fields);
+        setCenter(buttons);
+        setBottom(errorMessage);
 
 
-            });
-
-            edit.setOnAction(event -> {
-                goToEdit.accept(username);
+        back.setOnAction(event -> {
+            backToAdminSearch.run();
 
 
+        });
 
-            });
+        edit.setOnAction(event -> {
+            editUser.accept(username);
+
+
+
+        });
 
     }
 

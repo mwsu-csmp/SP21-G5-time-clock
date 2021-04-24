@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import java.sql.SQLException;
 import java.util.function.Consumer;
 
-public class EditAccountPane extends BorderPane {
+public class AdminEditAccountPane extends BorderPane {
     TextField username = new TextField();
     TextField email = new TextField();
     TextField address = new TextField();
@@ -22,7 +22,7 @@ public class EditAccountPane extends BorderPane {
     PasswordField currentPassword = new PasswordField();
 
 
-    public EditAccountPane(Consumer<String> backToInfo) {
+    public AdminEditAccountPane(Consumer<String> backToInfo) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
         fields.alignmentProperty().setValue(Pos.TOP_LEFT);
@@ -97,7 +97,7 @@ public class EditAccountPane extends BorderPane {
                 errorMessage.setText("");
             }
         });
-        }
+    }
     public void update() {
         username.setText("Username");
         email.setText("Email");

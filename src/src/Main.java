@@ -10,6 +10,9 @@ public class Main extends Application {
     private Scene createAccountScene;
     private Scene userInformationScene;
     private Scene editAccountScene;
+    private Scene adminSearchScene;
+    private Scene adminInformationScene;
+    private Scene adminEditAccountScene;
 
 
     public static void main(String args[]) {
@@ -18,6 +21,32 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        AdminEditAccountPane adminEditAccount = new AdminEditAccountPane(username -> {
+
+            primaryStage.setScene(adminInformationScene);
+            primaryStage.setTitle(username+"'s Information");
+        });
+
+        AdminInformationPane adminInfo = new AdminInformationPane(username -> {
+            adminEditAccount.update();
+            primaryStage.setScene(adminEditAccountScene);
+            primaryStage.setTitle("Edit "+username+"'s Account Information");
+        }, () -> {
+            primaryStage.setScene(adminSearchScene);
+            primaryStage.setTitle("Search for User");
+        });
+
+        AdminSearchPane adminSearch = new AdminSearchPane(username -> {
+            adminInfo.setUsername(username);
+            adminInfo.update();
+            primaryStage.setScene(adminInformationScene);
+            primaryStage.setTitle(username+"'s Information");
+
+        }, () -> {
+            primaryStage.setScene(clockInScene);
+            primaryStage.setTitle("Clock In");
+        });
 
         EditAccountPane editAccount = new EditAccountPane(username -> {
             primaryStage.setScene(userInformationScene);
@@ -38,6 +67,10 @@ public class Main extends Application {
             userInfo.update();
             primaryStage.setScene(userInformationScene);
             primaryStage.setTitle(username+"'s Information");
+        }, admin -> {
+            editAccount.update();
+            primaryStage.setScene(adminSearchScene);
+            primaryStage.setTitle("Search for User");
         }, () -> {
             primaryStage.setScene(loginScene);
             primaryStage.setTitle("Login");
@@ -57,12 +90,14 @@ public class Main extends Application {
             primaryStage.setTitle("Login");
         });
 
-
+        adminSearchScene = new Scene(adminSearch);
         userInformationScene = new Scene(userInfo);
         clockInScene = new Scene(clockIn);
         loginScene = new Scene(login);
         createAccountScene = new Scene(createAccount);
-        editAccountScene= new Scene(editAccount);
+        editAccountScene = new Scene(editAccount);
+        adminInformationScene = new Scene(adminInfo);
+        adminEditAccountScene = new Scene(adminEditAccount);
 
 
         primaryStage.setScene(loginScene);
@@ -86,20 +121,17 @@ public class Main extends Application {
 
     public static String checkDuplicateInfo(String username, String email, String phoneNumber) throws SQLException {
         //for ) { //CREATE A SQL TO CHECK IF USERNAME ALREADY EXISTS
-            if (BackEnd.checkDuplicate(username)) {
+            if (BackEnd.checkDuplicateUsername(username)) {
                 return "This username is already taken!";
             }
-            //if (name.getEmail().equals(email)) {
-                //return "This email is already linked to an account!";
-            //}
-            //if (name.getPhoneNumber().equals(phoneNumber)) {
-            //    return "This phone number is already linked to an account!";
-           // }
-        //}
+            if (BackEnd.checkDuplicateEmail(email)) {
+                return "This email is already linked to an account!";
+            }
+            if ((BackEnd.checkDuplicatePhone(phoneNumber))) {
+                return "This phone number is already linked to an account!";
+            }
         return null;
     }
-
-
 }
 
 

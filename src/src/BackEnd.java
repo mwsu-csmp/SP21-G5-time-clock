@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -135,8 +136,8 @@ public class BackEnd {
     }
 
 
-    public static List userInfo(String Username) {
-        List UserInfo = null;
+    public static List<String> userInfo(String Username) {
+        List<String> UserInfo = null;
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -153,8 +154,7 @@ public class BackEnd {
 
             resultSet = pstmt.executeQuery();
 
-            UserInfo = Collections.singletonList(resultSet.getString(1));
-
+            UserInfo =  Collections.singletonList(resultSet.getString(1));
             return UserInfo;
 
 

@@ -3,7 +3,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.util.function.Consumer;
 
@@ -17,23 +16,23 @@ public class ClockPane extends BorderPane {
     }
 
 
-    public ClockPane(Consumer<String> goToMyInfo, Runnable goBackToLogin) {
-        VBox fields = new VBox();
+    public ClockPane(Consumer<String> goToMyInfo, Consumer<String> goToAdminSearch, Runnable goBackToLogin) {
         HBox buttons = new HBox();
-        buttons.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
+        buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
 
         var backToLogin = new Button("Back to Login");
-        var addClocking = new Button("Clock In/Out");
+        var clockIn = new Button("Clock In");
+        var clockOut = new Button("Clock Out");
         var myInfo = new Button("My Info");
         var admin = new Button("Admin Button");
         var errorMessage = new Label();
 
         buttons.getChildren().add(backToLogin);
-        buttons.getChildren().add(addClocking);
+        buttons.getChildren().add(clockIn);
+        buttons.getChildren().add(clockOut);
         buttons.getChildren().add(myInfo);
         buttons.getChildren().add(admin);
-        setTop(fields);
-        setCenter(buttons);
+        setTop(buttons);
         setBottom(errorMessage);
 
 
@@ -42,14 +41,16 @@ public class ClockPane extends BorderPane {
 
         });
 
-        addClocking.setOnAction(event -> {
+        clockIn.setOnAction(event -> {
+        });
 
-
+        clockOut.setOnAction(event -> {
         });
 
         myInfo.setOnAction(event -> goToMyInfo.accept(username));
 
         admin.setOnAction(event ->  {
+            goToAdminSearch.accept(username);
 
 
         });
