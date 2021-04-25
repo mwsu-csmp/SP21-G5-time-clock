@@ -138,7 +138,7 @@ public class BackEnd {
 
     public static List<String> userInfo(String Username) {
 
-        List<String> UserInfo = null;
+        List<String> UserInfo = new ArrayList<>();
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -148,15 +148,49 @@ public class BackEnd {
         try {
 
             Connection conn = connect();
-
             pstmt = conn.prepareStatement(sql);
-
             pstmt.setString(1, Username);
-
             resultSet = pstmt.executeQuery();
 
-            UserInfo =  Collections.singletonList(resultSet.getString(1));
-            return UserInfo;
+            //while(resultSet.next())
+           //{
+                String EMP_ID = resultSet.getString("EMP_ID");
+                UserInfo.add(EMP_ID);
+
+                String Name = resultSet.getString("Name");
+                UserInfo.add(Name);
+
+                String Username_db = resultSet.getString("Username");
+                UserInfo.add(Username_db);
+
+                String Email = resultSet.getString("Email");
+                UserInfo.add(Email);
+
+                String Address = resultSet.getString("Address");
+                UserInfo.add(Address);
+
+                String PhoneNumber = resultSet.getString("PhoneNumber");
+                UserInfo.add(PhoneNumber);
+
+                String DOB = resultSet.getString("DOB");
+                UserInfo.add(DOB);
+
+                String password = resultSet.getString("password");
+                UserInfo.add(password);
+
+                String Payment =resultSet.getString("Payment");
+                UserInfo.add(Payment);
+
+                String dollarsAnHour = resultSet.getString("dollarsAnHour");
+                UserInfo.add(dollarsAnHour);
+
+                String HoursWorked = resultSet.getString("HoursWorked");
+                UserInfo.add(HoursWorked);
+
+                System.out.println(UserInfo);
+           // }
+
+
 
 
         } catch (SQLException e) {
