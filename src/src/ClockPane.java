@@ -16,7 +16,7 @@ public class ClockPane extends BorderPane {
     }
 
 
-    public ClockPane(Consumer<String> goToMyInfo, Consumer<String> goToAdminSearch, Runnable goBackToLogin) {
+    public ClockPane(Consumer<String> goToMyInfo, Runnable goToAdminSearch, Runnable goBackToLogin) {
         HBox buttons = new HBox();
         buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
 
@@ -37,20 +37,31 @@ public class ClockPane extends BorderPane {
 
 
         backToLogin.setOnAction(event -> {
+            errorMessage.setText("");
             goBackToLogin.run();
-
         });
 
         clockIn.setOnAction(event -> {
+            errorMessage.setText("");
         });
 
         clockOut.setOnAction(event -> {
+            errorMessage.setText("");
         });
 
-        myInfo.setOnAction(event -> goToMyInfo.accept(username));
+        myInfo.setOnAction(event -> {
+            goToMyInfo.accept(username);
+            errorMessage.setText("");
+        });
 
         admin.setOnAction(event ->  {
-            goToAdminSearch.accept(username);
+            if (username.equals("admin")) {
+                goToAdminSearch.run();
+                errorMessage.setText("");
+            }
+            else {
+                errorMessage.setText("You must be an admin to click this button!");
+            }
 
 
         });

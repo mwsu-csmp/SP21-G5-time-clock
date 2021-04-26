@@ -68,8 +68,7 @@ public class Main extends Application {
             userInfo.update();
             primaryStage.setScene(userInformationScene);
             primaryStage.setTitle(username+"'s Information");
-        }, admin -> {
-            editAccount.update();
+        }, () -> {
             primaryStage.setScene(adminSearchScene);
             primaryStage.setTitle("Search for User");
         }, () -> {
