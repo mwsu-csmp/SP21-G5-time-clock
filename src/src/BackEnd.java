@@ -214,7 +214,7 @@ public class BackEnd {
     }
 
 
-    public static boolean editInfoUser(List<String> UserEdit ){
+    public static boolean editInfoUser(List<String> UserEdit ) {
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -239,31 +239,15 @@ public class BackEnd {
             pstmt.setString(8, UserEdit.get(8));
             pstmt.setString(9, UserEdit.get(0));
 
-            resultSet = pstmt.executeQuery();
-
-
-
-            return true;
-
-
-
 
         } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
 
 
-        } finally {
-            try {
-                pstmt.close();
-                resultSet.close();
-                connect().close();
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-
-            }
-
         }
+
+        return true;
 
     }
 
