@@ -2,7 +2,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -54,43 +53,6 @@ public class BackEnd {
 
         }
         return true;
-    }
-
-
-    public boolean TimeClock(int id, String day, String Clock_In, String Clock_Out) throws SQLException {
-
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-
-        String sql = "INSERT INTO CLOCK (EMP_ID, DAY, CLOCK_IN, CLOCK_OUT)" +
-                " VALUES (?,?,?,?)";
-
-        try {
-
-            pstmt = c.prepareStatement(sql);
-            pstmt.setInt(1, id);
-            pstmt.setString(2, day);
-            pstmt.setString(3, Clock_In);
-            pstmt.setString(4, Clock_Out);
-            ;
-            pstmt.executeUpdate();
-
-            resultSet = pstmt.executeQuery();
-
-
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (Exception e) {
-            return false;
-
-        } finally {
-            pstmt.close();
-            resultSet.close();
-        }
     }
 
 
@@ -152,49 +114,29 @@ public class BackEnd {
             pstmt.setString(1, Username);
             resultSet = pstmt.executeQuery();
 
-            //while(resultSet.next())
-           //{
-                String EMP_ID = resultSet.getString("EMP_ID");
-                UserInfo.add(EMP_ID);
 
-                String Name = resultSet.getString("Name");
-                UserInfo.add(Name);
-
-                String Username_db = resultSet.getString("Username");
-                UserInfo.add(Username_db);
-
-                String Email = resultSet.getString("Email");
-                UserInfo.add(Email);
-
-                String Address = resultSet.getString("Address");
-                UserInfo.add(Address);
-
-                String PhoneNumber = resultSet.getString("PhoneNumber");
-                UserInfo.add(PhoneNumber);
-
-                String DOB = resultSet.getString("DOB");
-                UserInfo.add(DOB);
-
-                String password = resultSet.getString("password");
-                UserInfo.add(password);
-
-                String Payment =resultSet.getString("Payment");
-                UserInfo.add(Payment);
-
-                String dollarsAnHour = resultSet.getString("dollarsAnHour");
-                UserInfo.add(dollarsAnHour);
-
-                String HoursWorked = resultSet.getString("HoursWorked");
-                UserInfo.add(HoursWorked);
+                UserInfo.add(resultSet.getString("EMP_ID"));
+                UserInfo.add(resultSet.getString("Name"));
+                UserInfo.add(resultSet.getString("Username"));
+                UserInfo.add(resultSet.getString("Email"));
+                UserInfo.add(resultSet.getString("Address"));
+                UserInfo.add(resultSet.getString("PhoneNumber"));
+                UserInfo.add(resultSet.getString("DOB"));
+                UserInfo.add(resultSet.getString("password"));
+                UserInfo.add(resultSet.getString("Payment"));
+                UserInfo.add(resultSet.getString("dollarsAnHour"));
+                UserInfo.add(resultSet.getString("HoursWorked"));
 
                 System.out.println(UserInfo);
-           // }
+
 
 
 
 
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return UserInfo;
+
 
         } finally {
             try {
@@ -207,7 +149,67 @@ public class BackEnd {
             }
 
         }
-        return UserInfo;
+
+            return UserInfo;
+
+
+    }
+
+
+    public static boolean editInfo(List<String> UserEdit ){
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? " +
+                " WHERE EMP_ID = ?";
+
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+
+            pstmt.setString(1, UserEdit.get(1));
+            pstmt.setString(2, UserEdit.get(2));
+            pstmt.setString(3, UserEdit.get(3));
+            pstmt.setString(4, UserEdit.get(4));
+            pstmt.setString(5, UserEdit.get(5));
+            pstmt.setString(6, UserEdit.get(6));
+            pstmt.setString(7, UserEdit.get(7));
+            pstmt.setString(8, UserEdit.get(8));
+            pstmt.setString(9, UserEdit.get(0));
+
+            resultSet = pstmt.executeQuery();
+
+
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+
+
+        } finally {
+            try {
+                pstmt.close();
+                resultSet.close();
+                connect().close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+
+            }
+
+        }
+
     }
 
 
@@ -332,6 +334,37 @@ public class BackEnd {
 
         return true;
 
+    }
+
+    public boolean Clock_in(String id, String datetime) throws SQLException {
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        String sql = "INSERT INTO CLOCK (ID, DAY, CLOCK_IN, CLOCK_OUT)" +
+                " VALUES (?,?,?,?)";
+
+        try {
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+
+            resultSet = pstmt.executeQuery();
+
+
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            return false;
+
+        } finally {
+            pstmt.close();
+            resultSet.close();
+        }
     }
 
 

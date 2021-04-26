@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 
@@ -42,6 +43,8 @@ public class ClockPane extends BorderPane {
         });
 
         clockIn.setOnAction(event -> {
+            List<String> userinfo =  BackEnd.userInfo(username);
+
             errorMessage.setText("");
         });
 
