@@ -178,7 +178,9 @@ public class BackEnd {
             pstmt.setString(6, UserEdit.get(6));
             pstmt.setString(7, UserEdit.get(7));
             pstmt.setString(8, UserEdit.get(8));
-            pstmt.setString(9, UserEdit.get(0));
+            pstmt.setString(9, UserEdit.get(9));
+            pstmt.setString(10, UserEdit.get(10));
+            pstmt.setString(11, UserEdit.get(0));
 
             resultSet = pstmt.executeQuery();
 
