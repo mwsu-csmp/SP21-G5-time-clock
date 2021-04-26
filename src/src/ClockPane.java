@@ -14,10 +14,10 @@ import java.util.function.Consumer;
 
 public class ClockPane extends BorderPane {
 
-    private String username;
+    private String ID;
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setID(String username) {
+        this.ID = username;
     }
 
 
@@ -47,7 +47,7 @@ public class ClockPane extends BorderPane {
         });
 
         clockIn.setOnAction(event -> {
-            List<String> userinfo =  BackEnd.userInfo(username);
+            List<String> userinfo =  BackEnd.userInfo(ID);
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-DD hh:mm:ss");
             LocalDateTime now = LocalDateTime.now();
@@ -66,12 +66,12 @@ public class ClockPane extends BorderPane {
         });
 
         myInfo.setOnAction(event -> {
-            goToMyInfo.accept(username);
+            goToMyInfo.accept(ID);
             errorMessage.setText("");
         });
 
         admin.setOnAction(event ->  {
-            if (username.equals("admin")) {
+            if (ID.equals("admin")) { //change this
                 goToAdminSearch.run();
                 errorMessage.setText("");
             }
