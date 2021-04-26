@@ -22,10 +22,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        AdminEditAccountPane adminEditAccount = new AdminEditAccountPane(username -> {
+        AdminEditAccountPane adminEditAccount = new AdminEditAccountPane(ID -> {
 
             primaryStage.setScene(adminInformationScene);
-            primaryStage.setTitle(username+"'s Information");
+            primaryStage.setTitle(BackEnd.userInfo(ID).get(2)+"'s Information");
         });
 
         AdminInformationPane adminInfo = new AdminInformationPane(ID -> {
