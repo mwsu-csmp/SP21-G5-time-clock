@@ -8,28 +8,31 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class AdminEditAccountPane extends BorderPane {
+    TextField name = new TextField();
     TextField username = new TextField();
     TextField email = new TextField();
     TextField address = new TextField();
     TextField phoneNumber = new TextField();
     TextField dob = new TextField();
     TextField preferredPayment = new TextField();
+    TextField dollarsAnHour = new TextField();
     PasswordField  password = new PasswordField();
     PasswordField repeatPassword = new PasswordField();
     PasswordField currentPassword = new PasswordField();
 
-    private String originalUsername;
+    private String ID;
 
-    public void setUsername(String username) {
-        this.originalUsername = username;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
 
 
-    public AdminEditAccountPane(Consumer<String> backToInfo) {
+    public AdminEditAccountPane(Runnable backToSearch, Consumer<String> backToInfo) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
         fields.alignmentProperty().setValue(Pos.TOP_LEFT);
@@ -41,13 +44,14 @@ public class AdminEditAccountPane extends BorderPane {
         var editAccountInfo = new Button("Edit Account Information");
         var errorMessage = new Label();
 
-
+        fields.getChildren().add(new Label("Name", name));
         fields.getChildren().add(new Label("Edit Username", username));
         fields.getChildren().add(new Label("Edit Email", email));
         fields.getChildren().add(new Label("Edit Address", address));
         fields.getChildren().add(new Label("Edit Phone Number", phoneNumber));
         fields.getChildren().add(new Label("Edit Date of Birth", dob));
         fields.getChildren().add(new Label("Edit Preferred Payment Method", preferredPayment));
+        fields.getChildren().add(new Label("Edit Dollars Per Hour", dollarsAnHour));
         fields.getChildren().add(new Label("New Password", password));
         fields.getChildren().add(new Label("Repeat New Password", repeatPassword));
         fields.getChildren().add(new Label("Current Password", currentPassword));
@@ -60,6 +64,7 @@ public class AdminEditAccountPane extends BorderPane {
         setBottom(errorMessage);
 
         clear.setOnAction(event -> {
+            name.clear();
             username.clear();
             email.clear();
             address.clear();
@@ -73,17 +78,18 @@ public class AdminEditAccountPane extends BorderPane {
         });
 
         back.setOnAction(event -> {
+            name.clear();
             username.clear();
             email.clear();
             address.clear();
             phoneNumber.clear();
             dob.clear();
+            password.clear();
             preferredPayment.clear();
             repeatPassword.clear();
-            password.clear();
             currentPassword.clear();
 
-            backToInfo.accept(username.getText());
+            backToInfo.accept(ID);
             errorMessage.setText("");
 
         });
@@ -93,25 +99,43 @@ public class AdminEditAccountPane extends BorderPane {
                 errorMessage.setText("You must fill out the entire menu to create an account!");
             }
             else {
-                backToInfo.accept(username.getText());
+                ArrayList<String> newInfo = new ArrayList<>();
+                newInfo.add(BackEnd.userInfo(ID).get(0));
+                newInfo.add(name.getText());
+                newInfo.add(username.getText());
+                newInfo.add(email.getText());
+                newInfo.add(address.getText());
+                newInfo.add(phoneNumber.getText());
+                newInfo.add(dob.getText());
+                newInfo.add(password.getText());
+                newInfo.add(preferredPayment.getText());
+
+                BackEnd.editInfoAdmin(newInfo);
+
+                backToSearch.run();
+
+                name.clear();
                 username.clear();
                 email.clear();
                 address.clear();
                 phoneNumber.clear();
                 dob.clear();
+                preferredPayment.clear();
                 password.clear();
+                repeatPassword.clear();
                 currentPassword.clear();
                 errorMessage.setText("");
             }
         });
     }
     public void update() {
-        username.setText(BackEnd.userInfo(originalUsername).get(2));
-        email.setText(BackEnd.userInfo(originalUsername).get(3));
-        address.setText(BackEnd.userInfo(originalUsername).get(4));
-        phoneNumber.setText(BackEnd.userInfo(originalUsername).get(5));
-        dob.setText(BackEnd.userInfo(originalUsername).get(6));
-        preferredPayment.setText(BackEnd.userInfo(originalUsername).get(8));
+        name.setText(BackEnd.userInfo(ID).get(1));
+        username.setText(BackEnd.userInfo(ID).get(2));
+        email.setText(BackEnd.userInfo(ID).get(3));
+        address.setText(BackEnd.userInfo(ID).get(4));
+        phoneNumber.setText(BackEnd.userInfo(ID).get(5));
+        dob.setText(BackEnd.userInfo(ID).get(6));
+        preferredPayment.setText(BackEnd.userInfo(ID).get(8));
 
 
     }

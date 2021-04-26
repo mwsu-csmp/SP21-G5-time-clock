@@ -6,9 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.sql.SQLException;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class AdminSearchPane extends BorderPane {
@@ -47,8 +45,9 @@ public class AdminSearchPane extends BorderPane {
 
         search.setOnAction(event -> {
             try {
-                if (BackEnd.getID(username.getText()).length() > 0) {
-                    searchUser.accept(username.getText());
+                if (BackEnd.getID(username.getText()) != null) {
+                    searchUser.accept(BackEnd.getID(username.getText()));
+                    username.clear();
                 }
                 else {
                     errorMessage.setText("A user with that username doesn't exist!");
