@@ -242,11 +242,8 @@ public class BackEnd {
             resultSet = pstmt.executeQuery();
 
 
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
+
+            return true;
 
 
 
