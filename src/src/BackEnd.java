@@ -238,11 +238,11 @@ public class BackEnd {
             pstmt.setString(8, UserEdit.get(8));
             pstmt.setString(9, UserEdit.get(0));
 
+            pstmt.execute();
+
 
         } catch (SQLException e) {
             System.out.println(e.toString());
-            return false;
-
 
         }
 
