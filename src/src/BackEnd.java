@@ -30,7 +30,7 @@ public class BackEnd {
 
         PreparedStatement pstmt = null;
 
-        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , Address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,'Check',0.30,0)";
+        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , Address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,'Check',0.00,0.00)";
 
 
         try {
@@ -198,11 +198,9 @@ public class BackEnd {
     public static boolean editInfoAdmin(List<String> UserEdit ){
 
         PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
 
         String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? , dollarsAnHour = ? , HoursWorked = ? " +
                 " WHERE EMP_ID = ?";
-
 
         try {
 
@@ -222,34 +220,20 @@ public class BackEnd {
             pstmt.setString(10, UserEdit.get(10));
             pstmt.setString(11, UserEdit.get(0));
 
-            resultSet = pstmt.executeQuery();
-
-
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
-
-
+            pstmt.execute();
 
 
         } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
 
-
-        } finally {
-            try {
-                pstmt.close();
-                resultSet.close();
-                connect().close();
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-
-            }
-
         }
+
+        return true;
+
+
+
+
 
     }
 
