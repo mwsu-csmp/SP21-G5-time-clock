@@ -217,7 +217,6 @@ public class BackEnd {
     public static boolean editInfoUser(List<String> UserEdit ) {
 
         PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
 
         String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? " +
                 " WHERE EMP_ID = ?";
