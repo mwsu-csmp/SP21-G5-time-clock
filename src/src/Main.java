@@ -46,17 +46,20 @@ public class Main extends Application {
 
         }, () -> {
             primaryStage.setScene(clockInScene);
-            primaryStage.setTitle("Clock In");
+            primaryStage.setTitle("Clock In/Out Application");
         });
 
-        EditAccountPane editAccount = new EditAccountPane(ID -> {
+        EditAccountPane editAccount = new EditAccountPane(() -> {
+            primaryStage.setScene(clockInScene);
+            primaryStage.setTitle("Clock In/Out Application");
+        },ID -> {
             primaryStage.setScene(userInformationScene);
             primaryStage.setTitle(BackEnd.userInfo(ID).get(2)+"'s Information");
         });
 
         UserInformationPane userInfo = new UserInformationPane(() -> {
             primaryStage.setScene(clockInScene);
-            primaryStage.setTitle("Clock In");
+            primaryStage.setTitle("Clock In/Out Application");
         },ID -> {
             editAccount.setID(ID);
             editAccount.update();
@@ -80,7 +83,7 @@ public class Main extends Application {
         LoginPane login = new LoginPane(id -> {
             clockIn.setID(id);
             primaryStage.setScene(clockInScene);
-            primaryStage.setTitle("Clock In");
+            primaryStage.setTitle("Clock In/Out Application");
         }, () -> {
             primaryStage.setScene(createAccountScene);
             primaryStage.setTitle("Create an Account");

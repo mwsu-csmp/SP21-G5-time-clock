@@ -30,7 +30,7 @@ public class EditAccountPane extends BorderPane {
     }
 
 
-    public EditAccountPane(Consumer<String> backToInfo) {
+    public EditAccountPane(Runnable backToLogin,Consumer<String> backToInfo) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
         fields.alignmentProperty().setValue(Pos.TOP_LEFT);
@@ -110,7 +110,7 @@ public class EditAccountPane extends BorderPane {
 
 
 
-                backToInfo.accept(ID);
+                backToLogin.run();
 
                 name.clear();
                 username.clear();
