@@ -96,9 +96,10 @@ public class BackEnd {
         }
 
     }
+
     
-    public static String getID(String Username) throws SQLException
-    {
+    public static String getID(String Username) throws SQLException {
+
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         String id = null;

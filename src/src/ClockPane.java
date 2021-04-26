@@ -62,6 +62,16 @@ public class ClockPane extends BorderPane {
         });
 
         clockOut.setOnAction(event -> {
+            List<String> userinfo =  BackEnd.userInfo(ID);
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-DD hh:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            try {
+                BackEnd.Clock_Out(userinfo.get(0), now.toString());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             errorMessage.setText("");
         });
 
