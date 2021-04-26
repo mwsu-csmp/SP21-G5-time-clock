@@ -69,7 +69,7 @@ public class Main extends Application {
             primaryStage.setTitle("Edit Account Information");
         });
 
-        ClockPane clockIn = new ClockPane(ID -> {
+        ClockInPane clockIn = new ClockInPane(ID -> {
             userInfo.setID(ID);
             userInfo.update();
             primaryStage.setScene(userInformationScene);

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 
-public class ClockPane extends BorderPane {
+public class ClockInPane extends BorderPane {
 
     private String ID;
 
@@ -23,7 +23,7 @@ public class ClockPane extends BorderPane {
     }
 
 
-    public ClockPane(Consumer<String> goToMyInfo, Runnable goToAdminSearch, Runnable goBackToLogin) {
+    public ClockInPane(Consumer<String> goToMyInfo, Runnable goToAdminSearch, Runnable goBackToLogin) {
         HBox picture = new HBox();
         HBox buttons = new HBox();
         picture.alignmentProperty().setValue(Pos.TOP_CENTER);
@@ -36,7 +36,7 @@ public class ClockPane extends BorderPane {
         var clockIn = new Button("Clock In");
         var clockOut = new Button("Clock Out");
         var myInfo = new Button("My Info");
-        var admin = new Button("Admin Button");
+        var admin = new Button("Admin");
         var errorMessage = new Label();
         var pic = new ImageView();
 
