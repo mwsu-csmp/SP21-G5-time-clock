@@ -1,6 +1,8 @@
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -22,22 +24,34 @@ public class ClockPane extends BorderPane {
 
 
     public ClockPane(Consumer<String> goToMyInfo, Runnable goToAdminSearch, Runnable goBackToLogin) {
+        HBox picture = new HBox();
         HBox buttons = new HBox();
+        picture.alignmentProperty().setValue(Pos.TOP_CENTER);
         buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
 
+
+
+        var image = new Image("clock.jpg");
         var backToLogin = new Button("Back to Login");
         var clockIn = new Button("Clock In");
         var clockOut = new Button("Clock Out");
         var myInfo = new Button("My Info");
         var admin = new Button("Admin Button");
         var errorMessage = new Label();
+        var pic = new ImageView();
 
+        pic.setFitWidth(225);
+        pic.setFitHeight(225);
+        pic.setImage(image);
+
+        picture.getChildren().add(pic);
         buttons.getChildren().add(backToLogin);
         buttons.getChildren().add(clockIn);
         buttons.getChildren().add(clockOut);
         buttons.getChildren().add(myInfo);
         buttons.getChildren().add(admin);
-        setTop(buttons);
+        setTop(picture);
+        setCenter(buttons);
         setBottom(errorMessage);
 
 

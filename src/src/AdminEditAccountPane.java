@@ -140,6 +140,7 @@ public class AdminEditAccountPane extends BorderPane {
         phoneNumber.setText(BackEnd.userInfo(ID).get(5));
         dob.setText(BackEnd.userInfo(ID).get(6));
         preferredPayment.setText(BackEnd.userInfo(ID).get(8));
+        dollarsAnHour.setText(BackEnd.userInfo(ID).get(9));
 
 
     }
