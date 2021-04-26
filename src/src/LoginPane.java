@@ -53,7 +53,7 @@ import java.util.function.Consumer;
                 try {
                     if (BackEnd.isLogin(username.getText(), password.getText())) {
                         errorMessage.setText("");
-                        postLoginAction.accept(username.getText());
+                        postLoginAction.accept(BackEnd.getID(username.getText()));
                         username.clear();
                         password.clear();
                     }

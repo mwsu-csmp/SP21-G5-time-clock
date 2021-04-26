@@ -1,18 +1,15 @@
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.Locale;
 import java.util.function.Consumer;
 
 public class UserInformationPane extends BorderPane {
 
-    private String username;
+    private String ID;
 
     Label nameLabel;
     Label usernameLabel;
@@ -26,8 +23,8 @@ public class UserInformationPane extends BorderPane {
     Label dollarsEarnedLabel;
 
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
 
@@ -80,7 +77,7 @@ public class UserInformationPane extends BorderPane {
             });
 
             edit.setOnAction(event -> {
-                goToEdit.accept(username);
+                goToEdit.accept(ID);
 
 
 
@@ -89,16 +86,16 @@ public class UserInformationPane extends BorderPane {
     }
 
     public void update() {
-        nameLabel.setText("Name: "+BackEnd.userInfo(username).get(1));
-        usernameLabel.setText("Username: "+BackEnd.userInfo(username).get(2));
-        emailLabel.setText("Email: "+BackEnd.userInfo(username).get(3));
-        addressLabel.setText("Address: "+BackEnd.userInfo(username).get(4));
-        phoneNumberLabel.setText("Phone Number: "+BackEnd.userInfo(username).get(5));
-        dobLabel.setText("Date of Birth: "+BackEnd.userInfo(username).get(6));
-        preferredPaymentLabel.setText("Preferred Payment Method: "+BackEnd.userInfo(username).get(8));
-        dollarsAnHourLabel.setText("Dollars Per Hour: $"+BackEnd.userInfo(username).get(9));
-        hoursWorkedLabel.setText("Hours Worked: "+BackEnd.userInfo(username).get(10));
-        dollarsEarnedLabel.setText("Amount Earned: $"+(Double.parseDouble(BackEnd.userInfo(username).get(9))*Double.parseDouble(BackEnd.userInfo(username).get(10))));
+        nameLabel.setText("Name: "+BackEnd.userInfo(ID).get(1));
+        usernameLabel.setText("Username: "+BackEnd.userInfo(ID).get(2));
+        emailLabel.setText("Email: "+BackEnd.userInfo(ID).get(3));
+        addressLabel.setText("Address: "+BackEnd.userInfo(ID).get(4));
+        phoneNumberLabel.setText("Phone Number: "+BackEnd.userInfo(ID).get(5));
+        dobLabel.setText("Date of Birth: "+BackEnd.userInfo(ID).get(6));
+        preferredPaymentLabel.setText("Preferred Payment Method: "+BackEnd.userInfo(ID).get(8));
+        dollarsAnHourLabel.setText("Dollars Per Hour: $"+BackEnd.userInfo(ID).get(9));
+        hoursWorkedLabel.setText("Hours Worked: "+BackEnd.userInfo(ID).get(10));
+        dollarsEarnedLabel.setText("Amount Earned: $"+(Double.parseDouble(BackEnd.userInfo(ID).get(9))*Double.parseDouble(BackEnd.userInfo(ID).get(10))));
 
     }
 }

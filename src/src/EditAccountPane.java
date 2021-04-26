@@ -23,10 +23,10 @@ public class EditAccountPane extends BorderPane {
     PasswordField repeatPassword = new PasswordField();
     PasswordField currentPassword = new PasswordField();
 
-    private String originalUsername;
+    private String ID;
 
-    public void setUsername(String username) {
-        this.originalUsername = username;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
 
@@ -85,7 +85,7 @@ public class EditAccountPane extends BorderPane {
             password.clear();
             currentPassword.clear();
 
-            backToInfo.accept(username.getText());
+            backToInfo.accept(ID);
             errorMessage.setText("");
 
         });
@@ -96,7 +96,7 @@ public class EditAccountPane extends BorderPane {
             }
             else {
                 ArrayList<String> newInfo = new ArrayList<>();
-                newInfo.add(BackEnd.userInfo(originalUsername).get(0));
+                newInfo.add(BackEnd.userInfo(ID).get(0));
                 newInfo.add(name.getText());
                 newInfo.add(username.getText());
                 newInfo.add(email.getText());
@@ -110,7 +110,7 @@ public class EditAccountPane extends BorderPane {
 
 
 
-                backToInfo.accept(username.getText());
+                backToInfo.accept(ID);
 
                 name.clear();
                 username.clear();
@@ -127,13 +127,13 @@ public class EditAccountPane extends BorderPane {
         });
         }
     public void update() {
-        name.setText(BackEnd.userInfo(originalUsername).get(1));
-        username.setText(BackEnd.userInfo(originalUsername).get(2));
-        email.setText(BackEnd.userInfo(originalUsername).get(3));
-        address.setText(BackEnd.userInfo(originalUsername).get(4));
-        phoneNumber.setText(BackEnd.userInfo(originalUsername).get(5));
-        dob.setText(BackEnd.userInfo(originalUsername).get(6));
-        preferredPayment.setText(BackEnd.userInfo(originalUsername).get(8));
+        name.setText(BackEnd.userInfo(ID).get(1));
+        username.setText(BackEnd.userInfo(ID).get(2));
+        email.setText(BackEnd.userInfo(ID).get(3));
+        address.setText(BackEnd.userInfo(ID).get(4));
+        phoneNumber.setText(BackEnd.userInfo(ID).get(5));
+        dob.setText(BackEnd.userInfo(ID).get(6));
+        preferredPayment.setText(BackEnd.userInfo(ID).get(8));
 
 
 

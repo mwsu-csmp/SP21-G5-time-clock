@@ -28,47 +28,47 @@ public class Main extends Application {
             primaryStage.setTitle(username+"'s Information");
         });
 
-        AdminInformationPane adminInfo = new AdminInformationPane(username -> {
-            adminEditAccount.setUsername(username);
+        AdminInformationPane adminInfo = new AdminInformationPane(ID -> {
+            adminEditAccount.setUsername(ID);
             adminEditAccount.update();
             primaryStage.setScene(adminEditAccountScene);
-            primaryStage.setTitle("Edit "+username+"'s Account Information");
+            primaryStage.setTitle("Edit "+BackEnd.userInfo(ID).get(2)+"'s Account Information");
         }, () -> {
             primaryStage.setScene(adminSearchScene);
             primaryStage.setTitle("Search for User");
         });
 
-        AdminSearchPane adminSearch = new AdminSearchPane(username -> {
-            adminInfo.setUsername(username);
+        AdminSearchPane adminSearch = new AdminSearchPane(ID -> {
+            adminInfo.setUsername(ID);
             adminInfo.update();
             primaryStage.setScene(adminInformationScene);
-            primaryStage.setTitle(username+"'s Information");
+            primaryStage.setTitle(BackEnd.userInfo(ID).get(2)+"'s Information");
 
         }, () -> {
             primaryStage.setScene(clockInScene);
             primaryStage.setTitle("Clock In");
         });
 
-        EditAccountPane editAccount = new EditAccountPane(username -> {
+        EditAccountPane editAccount = new EditAccountPane(ID -> {
             primaryStage.setScene(userInformationScene);
-            primaryStage.setTitle(username+"'s Information");
+            primaryStage.setTitle(BackEnd.userInfo(ID).get(2)+"'s Information");
         });
 
         UserInformationPane userInfo = new UserInformationPane(() -> {
             primaryStage.setScene(clockInScene);
             primaryStage.setTitle("Clock In");
-        },username -> {
-            editAccount.setUsername(username);
+        },ID -> {
+            editAccount.setID(ID);
             editAccount.update();
             primaryStage.setScene(editAccountScene);
             primaryStage.setTitle("Edit Account Information");
         });
 
-        ClockPane clockIn = new ClockPane(username -> {
-            userInfo.setUsername(username);
+        ClockPane clockIn = new ClockPane(ID -> {
+            userInfo.setID(ID);
             userInfo.update();
             primaryStage.setScene(userInformationScene);
-            primaryStage.setTitle(username+"'s Information");
+            primaryStage.setTitle(BackEnd.userInfo(ID).get(2));
         }, () -> {
             primaryStage.setScene(adminSearchScene);
             primaryStage.setTitle("Search for User");
@@ -77,8 +77,8 @@ public class Main extends Application {
             primaryStage.setTitle("Login");
         });
 
-        LoginPane login = new LoginPane(username -> {
-            clockIn.setUsername(username);
+        LoginPane login = new LoginPane(id -> {
+            clockIn.setID(id);
             primaryStage.setScene(clockInScene);
             primaryStage.setTitle("Clock In");
         }, () -> {
