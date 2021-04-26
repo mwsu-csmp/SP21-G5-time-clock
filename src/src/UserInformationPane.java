@@ -93,16 +93,16 @@ public class UserInformationPane extends BorderPane {
         System.out.println(BackEnd.userInfo(username));
 
 
-        nameLabel.setText(BackEnd.userInfo(username).get(1));
-        usernameLabel.setText(BackEnd.userInfo(username).get(2));
-        emailLabel.setText(BackEnd.userInfo(username).get(3));
-        addressLabel.setText(BackEnd.userInfo(username).get(4));
-        phoneNumberLabel.setText(BackEnd.userInfo(username).get(5));
-        dobLabel.setText(BackEnd.userInfo(username).get(6));
-        preferredPaymentLabel.setText(BackEnd.userInfo(username).get(8));
-        dollarsAnHourLabel.setText(BackEnd.userInfo(username).get(9));
-        hoursWorkedLabel.setText(BackEnd.userInfo(username).get(10));
-        //TO DO ADD MONEY EARNED
+        nameLabel.setText("Name: "+BackEnd.userInfo(username).get(1));
+        usernameLabel.setText("Username: "+BackEnd.userInfo(username).get(2));
+        emailLabel.setText("Email: "+BackEnd.userInfo(username).get(3));
+        addressLabel.setText("Address: "+BackEnd.userInfo(username).get(4));
+        phoneNumberLabel.setText("Phone Number: "+BackEnd.userInfo(username).get(5));
+        dobLabel.setText("Date of Birth: "+BackEnd.userInfo(username).get(6));
+        preferredPaymentLabel.setText("Preferred Payment Method: "+BackEnd.userInfo(username).get(8));
+        dollarsAnHourLabel.setText("Dollars Per Hour: $"+BackEnd.userInfo(username).get(9));
+        hoursWorkedLabel.setText("Hours Worked: "+BackEnd.userInfo(username).get(10));
+        dollarsEarnedLabel.setText("Amount Earned: $"+(Integer.parseInt(BackEnd.userInfo(username).get(9))*Integer.parseInt(BackEnd.userInfo(username).get(10))));
 
     }
 }

@@ -86,7 +86,7 @@ public class CreateAccountPane extends BorderPane {
                     if (Main.checkDuplicateInfo(username.getText(), email.getText(), phoneNumber.getText()) == null) {
                         if (password.getText().equals(repeatPassword.getText())) {
                             try {
-                                Main.addToDatabase(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
+                                BackEnd.insertUser(name.getText(), username.getText(), email.getText(), address.getText(), phoneNumber.getText(), dob.getText(), password.getText());
                             } catch (SQLException throwables) {
                                 throwables.printStackTrace();
                             }

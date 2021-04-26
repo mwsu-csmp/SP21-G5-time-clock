@@ -31,7 +31,7 @@ public class BackEnd {
 
         PreparedStatement pstmt = null;
 
-        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , Address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,NULL,NULL,NULL)";
+        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , Address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,Check,0.00,0)";
 
 
         try {

@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 
 public class ClockPane extends BorderPane {
 
-    private String username = "";
+    private String username;
 
     public void setUsername(String username) {
         this.username = username;

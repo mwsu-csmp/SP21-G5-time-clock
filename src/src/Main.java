@@ -29,6 +29,7 @@ public class Main extends Application {
         });
 
         AdminInformationPane adminInfo = new AdminInformationPane(username -> {
+            adminEditAccount.setUsername(username);
             adminEditAccount.update();
             primaryStage.setScene(adminEditAccountScene);
             primaryStage.setTitle("Edit "+username+"'s Account Information");
@@ -104,20 +105,6 @@ public class Main extends Application {
         primaryStage.setTitle("Login");
         primaryStage.show();
     }
-
-    public static void addToDatabase(String name, String username, String email, String address, String phoneNumber, String dob, String password) throws SQLException {
-        BackEnd.insertUser(name, username, email, address, phoneNumber, dob, password);
-    }
-/*
-    public static User getUser(String username) {
-        for (User name : database) {// GET ALL INFO FROM USER FROM DATABASE
-            if (name.getUsername().equals(username)) {
-                return name;
-            }
-        }
-        return null;
-    }
-     */
 
     public static String checkDuplicateInfo(String username, String email, String phoneNumber) throws SQLException {
         //for ) { //CREATE A SQL TO CHECK IF USERNAME ALREADY EXISTS
