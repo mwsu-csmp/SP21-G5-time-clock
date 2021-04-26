@@ -155,8 +155,64 @@ public class BackEnd {
 
     }
 
+    public static boolean editInfoAdmin(List<String> UserEdit ){
 
-    public static boolean editInfo(List<String> UserEdit ){
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? , dollarsAnHour = ? , HoursWorked =? " +
+                " WHERE EMP_ID = ?";
+
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+
+            pstmt.setString(1, UserEdit.get(1));
+            pstmt.setString(2, UserEdit.get(2));
+            pstmt.setString(3, UserEdit.get(3));
+            pstmt.setString(4, UserEdit.get(4));
+            pstmt.setString(5, UserEdit.get(5));
+            pstmt.setString(6, UserEdit.get(6));
+            pstmt.setString(7, UserEdit.get(7));
+            pstmt.setString(8, UserEdit.get(8));
+            pstmt.setString(9, UserEdit.get(0));
+
+            resultSet = pstmt.executeQuery();
+
+
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+
+
+        } finally {
+            try {
+                pstmt.close();
+                resultSet.close();
+                connect().close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+
+            }
+
+        }
+
+    }
+
+
+    public static boolean editInfoUser(List<String> UserEdit ){
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
