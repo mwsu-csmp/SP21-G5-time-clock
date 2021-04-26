@@ -30,7 +30,7 @@ public class BackEnd {
 
         PreparedStatement pstmt = null;
 
-        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , Address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,Check,0.00,0)";
+        String sql = "INSERT INTO EMPLOYEE ( Name , Username , email , Address , phoneNumber , DOB , password , Payment , dollarsAnHour , hoursWorked ) VALUES (?,?,?,?,?,?,?,'Check',0.30,0)";
 
 
         try {
@@ -179,7 +179,7 @@ public class BackEnd {
             pstmt.setString(6, UserEdit.get(6));
             pstmt.setString(7, UserEdit.get(7));
             pstmt.setString(8, UserEdit.get(8));
-            pstmt.setString(9, UserEdit.get(0));
+            pstmt.setInt(9, Integer.parseInt(UserEdit.get(0)));
 
             resultSet = pstmt.executeQuery();
 
@@ -336,18 +336,19 @@ public class BackEnd {
 
     }
 
-    public boolean Clock_in(String id, String datetime) throws SQLException {
+    public static boolean Clock_in(String id, String datetime) throws SQLException {
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
 
-        String sql = "INSERT INTO CLOCK (ID, DAY, CLOCK_IN, CLOCK_OUT)" +
-                " VALUES (?,?,?,?)";
+        String sql = "INSERT INTO CLOCK (EMP_ID, CLOCK_IN)" +
+                " VALUES (?,?)";
 
         try {
             Connection conn = connect();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
+            pstmt.setString(2, datetime);
 
             resultSet = pstmt.executeQuery();
 

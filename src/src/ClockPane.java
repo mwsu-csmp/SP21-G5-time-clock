@@ -4,6 +4,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
+import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -44,6 +48,15 @@ public class ClockPane extends BorderPane {
 
         clockIn.setOnAction(event -> {
             List<String> userinfo =  BackEnd.userInfo(username);
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-DD hh:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            try {
+                BackEnd.Clock_in(userinfo.get(0), now.toString());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
 
             errorMessage.setText("");
         });
