@@ -96,6 +96,45 @@ public class BackEnd {
         }
 
     }
+    
+    public static String getID(String Username) throws SQLException
+    {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        String id = null;
+
+        String sql = "SELECT EMP_ID FROM EMPLOYEE WHERE Username = ?";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, Username);
+            
+            resultSet = pstmt.executeQuery();
+            
+            id = resultSet.getString("EMP_ID");
+            
+
+            
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+
+
+        } finally {
+            try {
+                pstmt.close();
+                resultSet.close();
+                connect().close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+
+            }
+
+        }
+
+        return id;
+    }
 
 
     public static List<String> userInfo(String id) {
@@ -403,7 +442,32 @@ public class BackEnd {
         return true;
     }
 
+    public static boolean Clock_Out(String id, String datetime) throws SQLException {
 
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        String sql = "UPDATE CLOCK SET CLOCK_OUT =? WHERE EMP_ID = ?";
+
+        try {
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, datetime);
+            pstmt.setString(2, id);
+
+            pstmt.execute();
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+
+        }
+
+        return true;
+    }
 
 
 
