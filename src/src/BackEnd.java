@@ -199,7 +199,7 @@ public class BackEnd {
 
         PreparedStatement pstmt = null;
 
-        String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? , dollarsAnHour = ? , HoursWorked = ? " +
+        String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? , dollarsAnHour = ? " +
                 " WHERE EMP_ID = ?";
 
         try {
@@ -217,7 +217,6 @@ public class BackEnd {
             pstmt.setString(7, UserEdit.get(7));
             pstmt.setString(8, UserEdit.get(8));
             pstmt.setString(9, UserEdit.get(9));
-            pstmt.setString(10, UserEdit.get(10));
             pstmt.setString(11, UserEdit.get(0));
 
             pstmt.execute();
@@ -430,9 +429,8 @@ public class BackEnd {
     public static boolean Clock_Out(String id, String datetime) throws SQLException {
 
         PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
 
-        String sql = "UPDATE CLOCK SET CLOCK_OUT =? WHERE EMP_ID = ?";
+        String sql = "UPDATE CLOCK SET CLOCK_OUT =?, STATUS = 'F' WHERE EMP_ID = ? AND STATUS = 'T' ";
 
         try {
             Connection conn = connect();
@@ -454,6 +452,50 @@ public class BackEnd {
         return true;
     }
 
+    public static boolean checkClockStatus(String id) throws SQLException {
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        int result;
+
+        String sql = "SELECT COUNT(STATUS) FROM CLOCK WHERE EMP_ID = ? AND STATUS = 'T'";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, id);
+
+            resultSet = pstmt.executeQuery();
+
+            result = resultSet.getInt(1);
+
+            System.out.println(result);
+
+            if (result == 1  || result == 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+
+        } finally {
+            pstmt.close();
+            resultSet.close();
+            connect().close();
+        }
+
+        return true;
+
+    }
 
 
 

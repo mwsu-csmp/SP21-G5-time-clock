@@ -52,8 +52,13 @@ public class ClockPane extends BorderPane {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-DD hh:mm:ss");
             LocalDateTime now = LocalDateTime.now();
 
+
             try {
-                BackEnd.Clock_in(userinfo.get(0), now.toString());
+                if(BackEnd.checkClockStatus(userinfo.get(0))) {
+                    BackEnd.Clock_in(userinfo.get(0), now.toString());
+                }else {
+                    System.out.println("Already clocked in");
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
