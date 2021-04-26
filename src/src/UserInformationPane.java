@@ -98,7 +98,7 @@ public class UserInformationPane extends BorderPane {
         preferredPaymentLabel.setText("Preferred Payment Method: "+BackEnd.userInfo(username).get(8));
         dollarsAnHourLabel.setText("Dollars Per Hour: $"+BackEnd.userInfo(username).get(9));
         hoursWorkedLabel.setText("Hours Worked: "+BackEnd.userInfo(username).get(10));
-        dollarsEarnedLabel.setText("Amount Earned: $"+(Integer.parseInt(BackEnd.userInfo(username).get(9))*Integer.parseInt(BackEnd.userInfo(username).get(10))));
+        dollarsEarnedLabel.setText("Amount Earned: $"+(Double.parseDouble(BackEnd.userInfo(username).get(9))*Double.parseDouble(BackEnd.userInfo(username).get(10))));
 
     }
 }
