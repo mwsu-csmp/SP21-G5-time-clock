@@ -98,20 +98,20 @@ public class BackEnd {
     }
 
 
-    public static List<String> userInfo(String Username) {
+    public static List<String> userInfo(String id) {
 
         List<String> UserInfo = new ArrayList<>();
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
 
-        String sql = "SELECT * FROM EMPLOYEE WHERE Username = ?";
+        String sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID = ?";
 
         try {
 
             Connection conn = connect();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, Username);
+            pstmt.setString(1, id);
             resultSet = pstmt.executeQuery();
 
 
@@ -243,6 +243,7 @@ public class BackEnd {
 
         } catch (SQLException e) {
             System.out.println(e.toString());
+            return false;
 
         }
 
@@ -385,25 +386,21 @@ public class BackEnd {
         try {
             Connection conn = connect();
             pstmt = conn.prepareStatement(sql);
+
             pstmt.setString(1, id);
             pstmt.setString(2, datetime);
 
-            resultSet = pstmt.executeQuery();
+           pstmt.execute();
 
 
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e.toString());
             return false;
 
-        } finally {
-            pstmt.close();
-            resultSet.close();
         }
+
+        return true;
     }
 
 
