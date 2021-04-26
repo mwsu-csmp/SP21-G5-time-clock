@@ -57,6 +57,7 @@ public class Main extends Application {
             primaryStage.setScene(clockInScene);
             primaryStage.setTitle("Clock In");
         },username -> {
+            editAccount.setUsername(username);
             editAccount.update();
             primaryStage.setScene(editAccountScene);
             primaryStage.setTitle("Edit Account Information");

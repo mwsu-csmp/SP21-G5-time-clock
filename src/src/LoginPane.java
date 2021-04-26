@@ -43,26 +43,26 @@ import java.util.function.Consumer;
             });
 
             createAccount.setOnAction(event -> {
-                newAccountAction.run();
-                errorMessage.setText("");
-                username.clear();
-                password.clear();
-
-
+                        newAccountAction.run();
+                        errorMessage.setText("");
+                        username.clear();
+                        password.clear();
             });
 
             login.setOnAction(event -> {
-
-
+                try {
+                    if (BackEnd.isLogin(username.getText(), password.getText())) {
                         errorMessage.setText("");
                         postLoginAction.accept(username.getText());
                         username.clear();
                         password.clear();
-
-
-
-
-
+                    }
+                    else {
+                        errorMessage.setText("The username or password is incorrect!");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             });
         }
     }

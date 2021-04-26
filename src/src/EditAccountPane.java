@@ -21,13 +21,18 @@ public class EditAccountPane extends BorderPane {
     PasswordField repeatPassword = new PasswordField();
     PasswordField currentPassword = new PasswordField();
 
+    private String originalUsername;
+
+    public void setUsername(String username) {
+        this.originalUsername = username;
+    }
+
 
     public EditAccountPane(Consumer<String> backToInfo) {
         VBox fields = new VBox();
         HBox buttons = new HBox();
         fields.alignmentProperty().setValue(Pos.TOP_LEFT);
         buttons.alignmentProperty().setValue(Pos.TOP_LEFT);
-
 
         var back = new Button("Back");
         var clear = new Button("Clear");
@@ -99,12 +104,13 @@ public class EditAccountPane extends BorderPane {
         });
         }
     public void update() {
-        username.setText("Username");
-        email.setText("Email");
-        address.setText("Address");
-        phoneNumber.setText("Phone Number");
-        dob.setText("Date of Birth");
-        preferredPayment.setText("Preferred Payment Method");
+        username.setText(BackEnd.userInfo(originalUsername).get(2));
+        email.setText(BackEnd.userInfo(originalUsername).get(3));
+        address.setText(BackEnd.userInfo(originalUsername).get(4));
+        phoneNumber.setText(BackEnd.userInfo(originalUsername).get(5));
+        dob.setText(BackEnd.userInfo(originalUsername).get(6));
+        preferredPayment.setText(BackEnd.userInfo(originalUsername).get(8));
+
 
 
     }

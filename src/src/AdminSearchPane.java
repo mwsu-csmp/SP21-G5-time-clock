@@ -47,7 +47,12 @@ public class AdminSearchPane extends BorderPane {
         });
 
         search.setOnAction(event -> {
-            searchUser.accept(username.getText());
+            if (BackEnd.userInfo(username.getText()).size() > 0) {
+                searchUser.accept(username.getText());
+            }
+            else {
+                errorMessage.setText("A user with that username doesn't exist!");
+            }
 
 
 

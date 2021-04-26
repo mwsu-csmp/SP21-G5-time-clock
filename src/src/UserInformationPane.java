@@ -92,17 +92,17 @@ public class UserInformationPane extends BorderPane {
 
         System.out.println(BackEnd.userInfo(username));
 
-        /*
-        nameLabel.setText("Name: "+Main.getUser(username).getName());
-        usernameLabel.setText("Username: "+Main.getUser(username).getUsername());
-        emailLabel.setText("Email: "+Main.getUser(username).getEmail());
-        addressLabel.setText("Address: "+Main.getUser(username).getAddress());
-        phoneNumberLabel.setText("Phone Number: "+Main.getUser(username).getPhoneNumber());
-        dobLabel.setText("Date of Birth: "+Main.getUser(username).getDob());
-        preferredPaymentLabel.setText("Preferred Payment Method: "+Main.getUser(username).getPreferredPayment().toString());
-        dollarsAnHourLabel.setText("Dollars Per Hour: $"+Main.getUser(username).getDollarsAnHour());
-        hoursWorkedLabel.setText("Total Hours Worked: "+Main.getUser(username).getHoursWorked());
-        dollarsEarnedLabel.setText("Dollars Earned: $"+Main.getUser(username).getDollarsEarned());
-        */
+
+        nameLabel.setText(BackEnd.userInfo(username).get(1));
+        usernameLabel.setText(BackEnd.userInfo(username).get(2));
+        emailLabel.setText(BackEnd.userInfo(username).get(3));
+        addressLabel.setText(BackEnd.userInfo(username).get(4));
+        phoneNumberLabel.setText(BackEnd.userInfo(username).get(5));
+        dobLabel.setText(BackEnd.userInfo(username).get(6));
+        preferredPaymentLabel.setText(BackEnd.userInfo(username).get(8));
+        dollarsAnHourLabel.setText(BackEnd.userInfo(username).get(9));
+        hoursWorkedLabel.setText(BackEnd.userInfo(username).get(10));
+        //TO DO ADD MONEY EARNED
+
     }
 }
