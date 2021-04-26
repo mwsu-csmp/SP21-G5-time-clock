@@ -160,7 +160,7 @@ public class BackEnd {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
 
-        String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? , dollarsAnHour = ? , HoursWorked =? " +
+        String sql = "UPDATE EMPLOYEE SET NAME = ?, Username = ?, Email = ?, Address = ?, PhoneNumber = ?, DOB = ?, password = ? , Payment = ? , dollarsAnHour = ? , HoursWorked = ? " +
                 " WHERE EMP_ID = ?";
 
 
