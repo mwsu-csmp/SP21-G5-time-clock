@@ -7,12 +7,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.sql.SQLException;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class AdminSearchPane extends BorderPane {
-    private String admin;
-
 
 
     public AdminSearchPane(Consumer<String> searchUser, Runnable backToClockIn) {
@@ -47,13 +46,16 @@ public class AdminSearchPane extends BorderPane {
         });
 
         search.setOnAction(event -> {
-            if (BackEnd.userInfo(username.getText()).size() > 0) {
-                searchUser.accept(username.getText());
+            try {
+                if (BackEnd.getID(username.getText()).length() > 0) {
+                    searchUser.accept(username.getText());
+                }
+                else {
+                    errorMessage.setText("A user with that username doesn't exist!");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-            else {
-                errorMessage.setText("A user with that username doesn't exist!");
-            }
-
 
 
         });

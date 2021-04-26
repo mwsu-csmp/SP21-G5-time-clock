@@ -81,7 +81,7 @@ public class ClockPane extends BorderPane {
         });
 
         admin.setOnAction(event ->  {
-            if (ID.equals("admin")) { //change this
+            if (ID.equals("1")) {
                 goToAdminSearch.run();
                 errorMessage.setText("");
             }
