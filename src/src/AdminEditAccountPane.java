@@ -70,8 +70,9 @@ public class AdminEditAccountPane extends BorderPane {
             address.clear();
             phoneNumber.clear();
             dob.clear();
-            password.clear();
             preferredPayment.clear();
+            dollarsAnHour.clear();
+            password.clear();
             repeatPassword.clear();
             currentPassword.clear();
             errorMessage.setText("");
@@ -84,8 +85,9 @@ public class AdminEditAccountPane extends BorderPane {
             address.clear();
             phoneNumber.clear();
             dob.clear();
-            password.clear();
             preferredPayment.clear();
+            dollarsAnHour.clear();
+            password.clear();
             repeatPassword.clear();
             currentPassword.clear();
 
@@ -109,6 +111,7 @@ public class AdminEditAccountPane extends BorderPane {
                 newInfo.add(dob.getText());
                 newInfo.add(password.getText());
                 newInfo.add(preferredPayment.getText());
+                newInfo.add(dollarsAnHour.getText());
 
                 BackEnd.editInfoAdmin(newInfo);
 
@@ -121,6 +124,7 @@ public class AdminEditAccountPane extends BorderPane {
                 phoneNumber.clear();
                 dob.clear();
                 preferredPayment.clear();
+                dollarsAnHour.clear();
                 password.clear();
                 repeatPassword.clear();
                 currentPassword.clear();
