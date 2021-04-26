@@ -471,16 +471,12 @@ public class BackEnd {
 
             result = resultSet.getInt(1);
 
-            System.out.println(result);
 
-            if (result == 1  || result == 0) {
+            if (result == 0) {
                 return true;
             } else {
                 return false;
             }
-
-
-
 
 
 
