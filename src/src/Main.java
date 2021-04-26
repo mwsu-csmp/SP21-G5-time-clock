@@ -22,14 +22,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        AdminEditAccountPane adminEditAccount = new AdminEditAccountPane(ID -> {
-
+        AdminEditAccountPane adminEditAccount = new AdminEditAccountPane(() -> {
+            primaryStage.setScene(adminSearchScene);
+            primaryStage.setTitle("Search for User");
+        }, ID -> {
             primaryStage.setScene(adminInformationScene);
             primaryStage.setTitle(BackEnd.userInfo(ID).get(2)+"'s Information");
         });
 
         AdminInformationPane adminInfo = new AdminInformationPane(ID -> {
-            adminEditAccount.setUsername(ID);
+            adminEditAccount.setID(ID);
             adminEditAccount.update();
             primaryStage.setScene(adminEditAccountScene);
             primaryStage.setTitle("Edit "+BackEnd.userInfo(ID).get(2)+"'s Account Information");
@@ -39,7 +41,7 @@ public class Main extends Application {
         });
 
         AdminSearchPane adminSearch = new AdminSearchPane(ID -> {
-            adminInfo.setUsername(ID);
+            adminInfo.setID(ID);
             adminInfo.update();
             primaryStage.setScene(adminInformationScene);
             primaryStage.setTitle(BackEnd.userInfo(ID).get(2)+"'s Information");

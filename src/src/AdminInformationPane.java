@@ -49,6 +49,7 @@ public class AdminInformationPane extends BorderPane {
         dobLabel = new Label();
         preferredPaymentLabel = new Label();
         dollarsAnHourLabel = new Label();
+        hoursWorkedLabel = new Label();
         dollarsEarnedLabel = new Label();
 
         fields.getChildren().add(nameLabel);
