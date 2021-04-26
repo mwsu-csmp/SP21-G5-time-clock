@@ -115,19 +115,19 @@ public class BackEnd {
             resultSet = pstmt.executeQuery();
 
 
-                UserInfo.add(resultSet.getString("EMP_ID"));
-                UserInfo.add(resultSet.getString("Name"));
-                UserInfo.add(resultSet.getString("Username"));
-                UserInfo.add(resultSet.getString("Email"));
-                UserInfo.add(resultSet.getString("Address"));
-                UserInfo.add(resultSet.getString("PhoneNumber"));
-                UserInfo.add(resultSet.getString("DOB"));
-                UserInfo.add(resultSet.getString("password"));
-                UserInfo.add(resultSet.getString("Payment"));
-                UserInfo.add(resultSet.getString("dollarsAnHour"));
-                UserInfo.add(resultSet.getString("HoursWorked"));
+            UserInfo.add(resultSet.getString("EMP_ID"));
+            UserInfo.add(resultSet.getString("Name"));
+            UserInfo.add(resultSet.getString("Username"));
+            UserInfo.add(resultSet.getString("Email"));
+            UserInfo.add(resultSet.getString("Address"));
+            UserInfo.add(resultSet.getString("PhoneNumber"));
+            UserInfo.add(resultSet.getString("DOB"));
+            UserInfo.add(resultSet.getString("password"));
+            UserInfo.add(resultSet.getString("Payment"));
+            UserInfo.add(resultSet.getString("dollarsAnHour"));
+            UserInfo.add(resultSet.getString("HoursWorked"));
 
-                System.out.println(UserInfo);
+            System.out.println(UserInfo);
 
 
 
@@ -150,7 +150,7 @@ public class BackEnd {
 
         }
 
-            return UserInfo;
+        return UserInfo;
 
 
     }

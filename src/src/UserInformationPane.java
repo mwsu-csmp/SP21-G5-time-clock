@@ -89,10 +89,6 @@ public class UserInformationPane extends BorderPane {
     }
 
     public void update() {
-
-        System.out.println(BackEnd.userInfo(username));
-
-
         nameLabel.setText("Name: "+BackEnd.userInfo(username).get(1));
         usernameLabel.setText("Username: "+BackEnd.userInfo(username).get(2));
         emailLabel.setText("Email: "+BackEnd.userInfo(username).get(3));
