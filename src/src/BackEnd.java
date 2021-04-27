@@ -25,8 +25,7 @@ public class BackEnd {
     }
 
 
-    public static boolean insertUser(String name, String Username, String email, String address, String phoneNumber, String dob,
-                                     String password) throws SQLException {
+    public static boolean insertUser(String name, String Username, String email, String address, String phoneNumber, String dob, String password) throws SQLException {
 
         PreparedStatement pstmt = null;
 
@@ -96,7 +95,6 @@ public class BackEnd {
         }
 
     }
-
     
     public static String getID(String Username) throws SQLException {
 
@@ -137,7 +135,6 @@ public class BackEnd {
         return id;
     }
 
-
     public static List<String> userInfo(String id) {
 
         List<String> UserInfo = new ArrayList<>();
@@ -167,7 +164,7 @@ public class BackEnd {
             UserInfo.add(resultSet.getString("dollarsAnHour"));
             UserInfo.add(resultSet.getString("HoursWorked"));
 
-            System.out.println(UserInfo);
+            //System.out.println(UserInfo);
 
 
 
@@ -236,7 +233,6 @@ public class BackEnd {
 
     }
 
-
     public static boolean editInfoUser(List<String> UserEdit ) {
 
         PreparedStatement pstmt = null;
@@ -273,7 +269,6 @@ public class BackEnd {
         return true;
 
     }
-
 
     public static boolean checkDuplicateUsername(String Username) throws SQLException {
 
@@ -493,6 +488,97 @@ public class BackEnd {
         }
 
         return true;
+
+    }
+
+    public static String getClockIn(String id) throws SQLException{
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        String result = null;
+
+        String sql = "SELECT CLOCK_IN FROM CLOCK WHERE EMP_ID = ? AND STATUS = 'T'";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            resultSet = pstmt.executeQuery();
+
+            result = resultSet.getString("CLOCK_IN");
+
+            return result;
+
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+
+        } finally {
+            pstmt.close();
+            resultSet.close();
+            connect().close();
+        }
+        return result;
+
+
+    }
+
+
+
+    public static List<String> UserClockInfo(String id) {
+
+        List<String> UserInfoClock = new ArrayList<>();
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        String sql = "SELECT * FROM CLOCK WHERE EMP_ID = ?";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            resultSet = pstmt.executeQuery();
+
+
+            while (resultSet.next()) {
+
+                UserInfoClock.add(resultSet.getString("ID"));
+                UserInfoClock.add(resultSet.getString("EMP_ID"));
+                UserInfoClock.add(resultSet.getString("CLOCK_IN"));
+                UserInfoClock.add(resultSet.getString("CLOCK_OUT"));
+                UserInfoClock.add(resultSet.getString("STATUS"));
+            }
+
+            //System.out.println(UserInfoClock);
+
+
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return UserInfoClock;
+
+
+        } finally {
+            try {
+                pstmt.close();
+                resultSet.close();
+                connect().close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+
+            }
+
+        }
+
+        return UserInfoClock;
+
 
     }
 

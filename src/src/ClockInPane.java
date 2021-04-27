@@ -77,6 +77,12 @@ public class ClockInPane extends BorderPane {
                 throwables.printStackTrace();
             }
 
+            try {
+                System.out.println(BackEnd.getClockIn(userinfo.get(0)));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
             errorMessage.setText("");
         });
 
@@ -91,6 +97,7 @@ public class ClockInPane extends BorderPane {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            System.out.println(BackEnd.UserClockInfo(userinfo.get(0)));
             errorMessage.setText("");
         });
 
