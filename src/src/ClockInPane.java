@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -61,15 +62,14 @@ public class ClockInPane extends BorderPane {
         });
 
         clockIn.setOnAction(event -> {
-            List<String> userinfo =  BackEnd.userInfo(ID);
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-DD hh:mm:ss");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/DD/YYYY hh:mm:ss");
             LocalDateTime now = LocalDateTime.now();
 
 
             try {
-                if(BackEnd.checkClockStatus(userinfo.get(0))) {
-                    BackEnd.Clock_in(userinfo.get(0), now.toString());
+                if(BackEnd.checkClockStatus(ID)) {
+                    BackEnd.Clock_in(ID, now.toString());
                 }else {
                     System.out.println("Already clocked in");
                 }
@@ -77,11 +77,6 @@ public class ClockInPane extends BorderPane {
                 throwables.printStackTrace();
             }
 
-            try {
-                System.out.println(BackEnd.getClockIn(userinfo.get(0)));
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
 
             errorMessage.setText("");
         });
@@ -89,15 +84,23 @@ public class ClockInPane extends BorderPane {
         clockOut.setOnAction(event -> {
             List<String> userinfo =  BackEnd.userInfo(ID);
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-DD hh:mm:ss");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/DD/YYYY hh:mm:ss");
             LocalDateTime now = LocalDateTime.now();
+
+            try {
+                BackEnd.HoursWorked(BackEnd.getClockIn(ID),ID);
+            } catch (SQLException | ParseException throwables) {
+                throwables.printStackTrace();
+            }
 
             try {
                 BackEnd.Clock_Out(userinfo.get(0), now.toString());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            System.out.println(BackEnd.UserClockInfo(userinfo.get(0)));
+
+
+
             errorMessage.setText("");
         });
 

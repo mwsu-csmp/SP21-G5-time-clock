@@ -1,8 +1,14 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class BackEnd {
@@ -497,7 +503,7 @@ public class BackEnd {
         ResultSet resultSet = null;
         String result = null;
 
-        String sql = "SELECT CLOCK_IN FROM CLOCK WHERE EMP_ID = ? AND STATUS = 'T'";
+        String sql = "SELECT STRFTIME('%m/%d/%Y %H:%M:%S',CLOCK_IN) AS CLOCK_IN FROM CLOCK WHERE EMP_ID = ? AND STATUS = 'T'";
 
         try {
 
@@ -508,7 +514,11 @@ public class BackEnd {
 
             result = resultSet.getString("CLOCK_IN");
 
+            System.out.println(result);
+
             return result;
+
+
 
 
 
@@ -525,6 +535,128 @@ public class BackEnd {
 
 
     }
+
+    public static boolean updateHoursWorked(String Hours,String id) throws SQLException{
+
+        PreparedStatement pstmt = null;
+
+        String sql = "UPDATE EMPLOYEE SET HoursWorked = ? " +
+                " WHERE EMP_ID = ?";
+
+
+
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+
+
+            pstmt.setString(1,Hours);
+            pstmt.setString(2,id);
+
+
+            pstmt.execute();
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+    public static String getHoursWorked(String id) throws SQLException{
+
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        String result = null;
+
+        String sql = "SELECT HoursWorked FROM EMPLOYEE WHERE EMP_ID = ?";
+
+        try {
+
+            Connection conn = connect();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            resultSet = pstmt.executeQuery();
+
+            result = resultSet.getString("HoursWorked");
+
+            System.out.println(result);
+
+            return result;
+
+
+
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+
+        } finally {
+            pstmt.close();
+            resultSet.close();
+            connect().close();
+        }
+        return result;
+
+
+    }
+
+
+    public static void HoursWorked(String datetime, String id) throws ParseException {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String Snow = now.format(dtf);
+
+
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+        try {
+
+            System.out.println("Datetime -> " + datetime);
+            System.out.println("Snow -> " + Snow);
+
+            Date dateStart = format.parse(datetime);
+            Date dateEnd = format.parse(Snow);
+
+            long diff = dateEnd.getTime() - dateStart.getTime();
+
+
+            double diffHours = ((diff / (60.00 * 1000.00) % 60.00)/60);
+
+            DecimalFormat df =new DecimalFormat("###.##");
+
+            double OriginalHours = Double.parseDouble(getHoursWorked(id));
+
+            String NewHours = String.valueOf(OriginalHours + Double.parseDouble(df.format(diffHours)));
+
+
+
+            updateHoursWorked(NewHours,id);
+
+
+
+
+
+
+        }catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+
+
+    }
+
+
+
+
 
 
 
