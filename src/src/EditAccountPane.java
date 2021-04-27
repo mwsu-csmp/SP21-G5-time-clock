@@ -1,13 +1,8 @@
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -149,8 +144,5 @@ public class EditAccountPane extends BorderPane {
         phoneNumber.setText(BackEnd.userInfo(ID).get(5));
         dob.setText(BackEnd.userInfo(ID).get(6));
         preferredPayment.setText(BackEnd.userInfo(ID).get(8));
-
-
-
     }
 }

@@ -16,8 +16,8 @@ import java.util.function.Consumer;
         public LoginPane(Consumer<String> postLoginAction, Runnable newAccountAction) {
             VBox fields = new VBox();
             HBox buttons = new HBox();
-            fields.alignmentProperty().setValue(Pos.BOTTOM_CENTER);
-            buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
+            fields.alignmentProperty().setValue(Pos.BOTTOM_LEFT);
+            buttons.alignmentProperty().setValue(Pos.TOP_LEFT);
 
             var username = new TextField();
             var password = new PasswordField();

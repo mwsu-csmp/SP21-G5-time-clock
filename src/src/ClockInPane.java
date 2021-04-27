@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -25,7 +26,7 @@ public class ClockInPane extends BorderPane {
 
 
     public ClockInPane(Consumer<String> goToMyInfo, Runnable goToAdminSearch, Runnable goBackToLogin) {
-        HBox picture = new HBox();
+        VBox picture = new VBox();
         HBox buttons = new HBox();
         picture.alignmentProperty().setValue(Pos.TOP_CENTER);
         buttons.alignmentProperty().setValue(Pos.TOP_CENTER);
