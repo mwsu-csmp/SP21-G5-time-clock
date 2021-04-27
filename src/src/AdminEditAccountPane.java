@@ -54,7 +54,7 @@ public class AdminEditAccountPane extends BorderPane {
         fields.getChildren().add(new Label("Edit Dollars Per Hour", dollarsAnHour));
         fields.getChildren().add(new Label("New Password", password));
         fields.getChildren().add(new Label("Repeat New Password", repeatPassword));
-        fields.getChildren().add(new Label("Current Password", currentPassword));
+        fields.getChildren().add(new Label("Your Password", currentPassword));
 
         buttons.getChildren().add(back);
         buttons.getChildren().add(clear);
@@ -97,38 +97,55 @@ public class AdminEditAccountPane extends BorderPane {
         });
 
         editAccountInfo.setOnAction(event -> {
-            if (password.getText().equals("") || currentPassword.getText().equals("")) {
-                errorMessage.setText("You must fill out the entire menu to create an account!");
+            if (name.getText().equals("") || username.getText().equals("") || email.getText().equals("") || address.getText().equals("") || phoneNumber.getText().equals("") || dob.getText().equals("") || preferredPayment.getText().equals("") || dollarsAnHour.getText().equals("")) {
+                errorMessage.setText("You must fill out all non-password fields to edit this account!");
             }
             else {
-                ArrayList<String> newInfo = new ArrayList<>();
-                newInfo.add(BackEnd.userInfo(ID).get(0));
-                newInfo.add(name.getText());
-                newInfo.add(username.getText());
-                newInfo.add(email.getText());
-                newInfo.add(address.getText());
-                newInfo.add(phoneNumber.getText());
-                newInfo.add(dob.getText());
-                newInfo.add(password.getText());
-                newInfo.add(preferredPayment.getText());
-                newInfo.add(dollarsAnHour.getText());
+                if (password.getText().equals(repeatPassword.getText())) {
+                    if (currentPassword.getText().equals(BackEnd.userInfo("1").get(7))) {
 
-                BackEnd.editInfoAdmin(newInfo);
 
-                backToSearch.run();
+                        ArrayList<String> newInfo = new ArrayList<>();
+                        newInfo.add(BackEnd.userInfo(ID).get(0));
+                        newInfo.add(name.getText());
+                        newInfo.add(username.getText());
+                        newInfo.add(email.getText());
+                        newInfo.add(address.getText());
+                        newInfo.add(phoneNumber.getText());
+                        newInfo.add(dob.getText());
+                        if (password.getText().equals("")) {
+                            newInfo.add(BackEnd.userInfo(ID).get(7));
+                        } else {
+                            newInfo.add(password.getText());
+                        }
+                        newInfo.add(preferredPayment.getText());
+                        newInfo.add(dollarsAnHour.getText());
 
-                name.clear();
-                username.clear();
-                email.clear();
-                address.clear();
-                phoneNumber.clear();
-                dob.clear();
-                preferredPayment.clear();
-                dollarsAnHour.clear();
-                password.clear();
-                repeatPassword.clear();
-                currentPassword.clear();
-                errorMessage.setText("");
+                        BackEnd.editInfoAdmin(newInfo);
+
+                        backToSearch.run();
+
+                        errorMessage.setText("");
+                        name.clear();
+                        username.clear();
+                        email.clear();
+                        address.clear();
+                        phoneNumber.clear();
+                        dob.clear();
+                        preferredPayment.clear();
+                        dollarsAnHour.clear();
+                        password.clear();
+                        repeatPassword.clear();
+                        currentPassword.clear();
+                        errorMessage.setText("");
+                    }
+                    else { errorMessage.setText("Your password is incorrect!");
+
+                    }
+                } else {
+                    errorMessage.setText("The new passwords must match in order to edit this account!");
+
+                }
             }
         });
     }

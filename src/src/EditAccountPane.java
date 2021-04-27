@@ -91,36 +91,53 @@ public class EditAccountPane extends BorderPane {
         });
 
         editAccountInfo.setOnAction(event -> {
-            if (password.getText().equals("") || currentPassword.getText().equals("")) {
-                errorMessage.setText("You must fill out the entire menu to create an account!");
+            if (name.getText().equals("") || username.getText().equals("") || email.getText().equals("") || address.getText().equals("") || phoneNumber.getText().equals("") || dob.getText().equals("") || preferredPayment.getText().equals("")) {
+                errorMessage.setText("You must fill out all non-password fields to edit your account!");
             }
             else {
-                ArrayList<String> newInfo = new ArrayList<>();
-                newInfo.add(BackEnd.userInfo(ID).get(0));
-                newInfo.add(name.getText());
-                newInfo.add(username.getText());
-                newInfo.add(email.getText());
-                newInfo.add(address.getText());
-                newInfo.add(phoneNumber.getText());
-                newInfo.add(dob.getText());
-                newInfo.add(password.getText());
-                newInfo.add(preferredPayment.getText());
+                if (password.getText().equals(repeatPassword.getText())) {
+                    if (currentPassword.getText().equals(BackEnd.userInfo(ID).get(7))) {
 
-                BackEnd.editInfoUser(newInfo);
 
-                backToClockIn.run();
+                        ArrayList<String> newInfo = new ArrayList<>();
+                        newInfo.add(BackEnd.userInfo(ID).get(0));
+                        newInfo.add(name.getText());
+                        newInfo.add(username.getText());
+                        newInfo.add(email.getText());
+                        newInfo.add(address.getText());
+                        newInfo.add(phoneNumber.getText());
+                        newInfo.add(dob.getText());
+                        if (password.getText().equals("")) {
+                            newInfo.add(BackEnd.userInfo(ID).get(7));
+                        } else {
+                            newInfo.add(password.getText());
+                        }
+                        newInfo.add(preferredPayment.getText());
 
-                name.clear();
-                username.clear();
-                email.clear();
-                address.clear();
-                phoneNumber.clear();
-                dob.clear();
-                preferredPayment.clear();
-                password.clear();
-                repeatPassword.clear();
-                currentPassword.clear();
-                errorMessage.setText("");
+                        BackEnd.editInfoUser(newInfo);
+
+                        backToClockIn.run();
+
+                        errorMessage.setText("");
+                        name.clear();
+                        username.clear();
+                        email.clear();
+                        address.clear();
+                        phoneNumber.clear();
+                        dob.clear();
+                        preferredPayment.clear();
+                        password.clear();
+                        repeatPassword.clear();
+                        currentPassword.clear();
+                        errorMessage.setText("");
+                    }
+                    else { errorMessage.setText("Your current password is incorrect!");
+
+                    }
+                } else {
+                    errorMessage.setText("Your new passwords must match in order to edit your account!");
+
+                }
             }
         });
         }
