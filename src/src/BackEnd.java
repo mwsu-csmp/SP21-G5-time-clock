@@ -514,7 +514,6 @@ public class BackEnd {
 
             result = resultSet.getString("CLOCK_IN");
 
-            System.out.println(result);
 
             return result;
 
@@ -586,7 +585,6 @@ public class BackEnd {
 
             result = resultSet.getString("HoursWorked");
 
-            System.out.println(result);
 
             return result;
 
@@ -608,7 +606,6 @@ public class BackEnd {
 
     }
 
-
     public static void HoursWorked(String datetime, String id) throws ParseException {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY HH:mm:ss");
@@ -619,9 +616,6 @@ public class BackEnd {
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         try {
-
-            System.out.println("Datetime -> " + datetime);
-            System.out.println("Snow -> " + Snow);
 
             Date dateStart = format.parse(datetime);
             Date dateEnd = format.parse(Snow);
@@ -653,12 +647,6 @@ public class BackEnd {
 
 
     }
-
-
-
-
-
-
 
     public static List<String> UserClockInfo(String id) {
 
