@@ -20,7 +20,6 @@ public class BackEnd {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:users.db");
-            System.out.println("connected ");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -568,7 +567,8 @@ public class BackEnd {
 
     }
 
-    public static String getHoursWorked(String id) throws SQLException{
+    public static String getHoursWorked(String id) throws SQLException
+    {
 
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
